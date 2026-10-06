@@ -8,138 +8,36 @@ import {
   Github,
   Search,
   X,
+  Layers,
+  Sparkles,
 } from "lucide-react";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
-import resumeImg from "@/assets/resume-website.jpg";
-import portfolioImg from "@/assets/portfolio-website.jpg";
-import reactAppsImg from "@/assets/react-applications.jpg";
-import bmiCalculatorImg from "@/assets/bmi-calculator.jpg";
-import dataScienceImg from "@/assets/data-science-project.jpg";
-import edgeDetectionImg from "@/assets/edge-detection.jpg";
-import bouncingBallImg from "@/assets/bouncing-ball-game.jpg";
-import workoutTrackerImg from "@/assets/workout-tracker.jpg";
-
-export interface ProjectItem {
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  liveLink?: string;
-  githubLink: string;
-  category: "SaaS & Mobile" | "Studio & Web" | "Systems & Data" | "Experiments";
-  status: "Active Production" | "Deployed" | "Completed" | "Open Source";
-}
-
-const projectsData: ProjectItem[] = [
-  {
-    title: "CusOwn",
-    description: "Production multi-tenant scheduling platform with realtime slot synchronization, PostgreSQL Row-Level Security, and automated client notifications.",
-    image: reactAppsImg,
-    technologies: ["React Native", "Expo", "TypeScript", "Supabase", "PostgreSQL"],
-    liveLink: "https://cusown.clykur.com/",
-    githubLink: "https://github.com/karthiknaramala9949",
-    category: "SaaS & Mobile",
-    status: "Active Production",
-  },
-  {
-    title: "Clykur Platform",
-    description: "Official web platform for Clykur product engineering studio, featuring edge rendering, performance optimizations, and modern design systems.",
-    image: portfolioImg,
-    technologies: ["Next.js", "TypeScript", "TailwindCSS", "Vercel"],
-    liveLink: "https://www.clykur.com/",
-    githubLink: "https://github.com/karthiknaramala9949",
-    category: "Studio & Web",
-    status: "Active Production",
-  },
-  {
-    title: "React Applications Suite",
-    description: "Decoupled React component library and interactive frontend tools showcasing custom hooks, component composition, and responsive state flows.",
-    image: reactAppsImg,
-    technologies: ["React", "JavaScript", "Custom Hooks", "State Machines"],
-    githubLink: "https://github.com/karthiknaramala9949/React-Applications",
-    category: "Studio & Web",
-    status: "Open Source",
-  },
-  {
-    title: "Workout Tracker",
-    description: "Focused fitness logging web app to record workout sets, monitor exercise progress, and persist session history via localStorage.",
-    image: workoutTrackerImg,
-    technologies: ["JavaScript ES6", "HTML5", "CSS3", "LocalStorage API"],
-    githubLink: "https://github.com/karthiknaramala9949/Workout_Tracker",
-    category: "Studio & Web",
-    status: "Open Source",
-  },
-  {
-    title: "Bouncing Ball Physics Engine",
-    description: "Realtime 2D physics simulation on HTML5 Canvas implementing elastic kinetic collisions, gravity vectors, and continuous animation loops.",
-    image: bouncingBallImg,
-    technologies: ["JavaScript", "HTML5 Canvas", "Physics Kinematics"],
-    githubLink: "https://github.com/karthiknaramala9949/Bouncing_Ball_Game",
-    category: "Experiments",
-    status: "Open Source",
-  },
-  {
-    title: "BMI Calculator & Health Analytics",
-    description: "Python computation workflows and Jupyter data analysis calculating anthropometric health metrics, risk classifications, and data distributions.",
-    image: bmiCalculatorImg,
-    technologies: ["Python", "Jupyter", "Pandas", "NumPy"],
-    githubLink: "https://github.com/karthiknaramala9949/BMI_Calculator",
-    category: "Systems & Data",
-    status: "Completed",
-  },
-  {
-    title: "DCT-FP Edge Detection System",
-    description: "Discrete Cosine Transform with Fractional Poisson (DCT-FP) fusion research in MATLAB for high-frequency edge detection in noisy imagery.",
-    image: edgeDetectionImg,
-    technologies: ["MATLAB", "Image Processing", "Signal Processing", "Algorithms"],
-    githubLink: "https://github.com/karthiknaramala9949/Project_Code",
-    category: "Systems & Data",
-    status: "Completed",
-  },
-  {
-    title: "Web Development Projects Suite",
-    description: "Curated collection of responsive UI prototypes, semantic HTML layouts, CSS Grid architectures, and frontend design patterns.",
-    image: resumeImg,
-    technologies: ["HTML5", "CSS3", "Responsive Design", "Flexbox/Grid"],
-    githubLink: "https://github.com/karthiknaramala9949/Web-Development-Projects",
-    category: "Studio & Web",
-    status: "Open Source",
-  },
-  {
-    title: "YBI Foundation ML Workflows",
-    description: "Supervised machine learning pipelines, exploratory data analysis benchmarks, and feature engineering implementations in Python.",
-    image: dataScienceImg,
-    technologies: ["Python", "Scikit-learn", "Pandas", "Jupyter"],
-    githubLink: "https://github.com/karthiknaramala9949/YBI-Foundation-Internship",
-    category: "Systems & Data",
-    status: "Completed",
-  },
-];
-
-const categories = [
-  "All",
-  "SaaS & Mobile",
-  "Studio & Web",
-  "Systems & Data",
-  "Experiments",
-] as const;
+import {
+  ProjectItem,
+  PROJECT_CATEGORIES,
+  projectsData,
+} from "@/data/projects";
 
 const ProjectCard = ({ project }: { project: ProjectItem }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
+  const statusVariantMap: Record<string, string> = {
+    "Active Production": "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
+    "Deployed": "border-blue-500/30 text-blue-400 bg-blue-500/10",
+    "Open Source": "border-amber-500/30 text-amber-400 bg-amber-500/10",
+    "Completed": "border-muted-foreground/30 text-muted-foreground bg-muted/40",
+  };
+
   return (
-    <Card className="card-elevated hover-lift overflow-hidden group flex flex-col h-full border border-border/80">
+    <Card className="card-elevated hover-lift overflow-hidden group flex flex-col h-full border border-border/80 transition-all duration-300">
       {/* Thumbnail */}
-      <div className="relative overflow-hidden bg-muted/30 aspect-[16/9]">
-        {!imageLoaded && !imageError && (
+      <div className="relative overflow-hidden bg-muted/20 aspect-[16/9] border-b border-border/60">
+        {!imageLoaded && !imageError && project.image && (
           <div className="absolute inset-0 bg-muted/40 animate-pulse flex items-center justify-center" />
         )}
-        {imageError ? (
-          <div className="w-full h-full flex items-center justify-center bg-secondary/40 text-muted-foreground p-3 text-center">
-            <span className="text-xs font-mono font-medium">{project.title}</span>
-          </div>
-        ) : (
+        
+        {project.image && !imageError ? (
           <img
             src={project.image}
             alt={project.title}
@@ -149,26 +47,46 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
             height={270}
             onLoad={() => setImageLoaded(true)}
             onError={() => setImageError(true)}
-            className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-103 ${
+            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-secondary/50 via-background to-muted/40 p-4 text-center">
+            <Layers className="h-8 w-8 text-primary/40 mb-2 group-hover:text-primary/70 transition-colors" />
+            <span className="text-xs font-mono font-semibold text-foreground/80">{project.title}</span>
+            <span className="text-[10px] font-mono text-muted-foreground mt-0.5">{project.category}</span>
+          </div>
         )}
 
+        {/* Top Badges */}
+        <div className="absolute top-2 left-2 flex items-center gap-1.5">
+          {project.featured && (
+            <Badge
+              variant="secondary"
+              className="text-[9px] font-mono font-medium bg-primary/20 text-primary border border-primary/40 backdrop-blur-md py-0 px-1.5 flex items-center gap-1"
+            >
+              <Sparkles className="h-2.5 w-2.5" /> Featured
+            </Badge>
+          )}
+        </div>
+
         <Badge
-          variant="secondary"
-          className="absolute top-2 right-2 text-[9px] font-mono font-medium bg-background/90 text-foreground backdrop-blur-md border border-border/60 py-0"
+          variant="outline"
+          className={`absolute top-2 right-2 text-[9px] font-mono font-medium backdrop-blur-md py-0 px-1.5 ${
+            statusVariantMap[project.status] || "bg-background/90 text-foreground"
+          }`}
         >
           {project.status}
         </Badge>
       </div>
 
-      <CardHeader className="p-4 pb-1">
+      <CardHeader className="p-4 pb-2">
         <div className="flex items-start justify-between gap-2">
-          <CardTitle className="text-base font-display font-bold group-hover:text-primary transition-colors leading-tight">
+          <CardTitle className="text-base font-display font-bold group-hover:text-primary transition-colors leading-snug">
             {project.title}
           </CardTitle>
-          <span className="text-[10px] font-mono text-muted-foreground shrink-0">
+          <span className="text-[10px] font-mono text-muted-foreground shrink-0 mt-0.5">
             {project.category}
           </span>
         </div>
@@ -193,7 +111,7 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-2 pt-2 border-t border-border/50">
+        <div className="flex items-center gap-2 pt-2.5 border-t border-border/50">
           {project.liveLink && (
             <Button size="sm" className="flex-1 h-7 text-[11px] glow-primary font-medium" asChild>
               <a
@@ -209,7 +127,7 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
           <Button
             size="sm"
             variant="outline"
-            className={`h-7 text-[11px] font-medium border-border hover:border-primary/40 ${
+            className={`h-7 text-[11px] font-medium border-border hover:border-primary/40 hover:bg-secondary/50 ${
               project.liveLink ? "flex-1" : "w-full"
             }`}
             asChild
@@ -220,7 +138,7 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
               rel="noopener noreferrer"
               aria-label={`Source Code of ${project.title} on GitHub`}
             >
-              <Github className="h-3 w-3 mr-1" /> Source Code
+              <Github className="h-3 w-3 mr-1" /> {project.liveLink ? "Source" : "View on GitHub"}
             </a>
           </Button>
         </div>
@@ -263,13 +181,18 @@ const Projects = () => {
       >
         <div className="max-w-6xl mx-auto space-y-6">
           {/* Header */}
-          <div>
-            <span className="text-xs font-mono font-medium text-primary uppercase tracking-wider block mb-1">
-              Projects &amp; Systems
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <div>
+              <span className="text-xs font-mono font-medium text-primary uppercase tracking-wider block mb-1">
+                Projects &amp; Systems
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                Featured <span className="text-gradient">Work</span>
+              </h2>
+            </div>
+            <span className="text-xs font-mono text-muted-foreground">
+              Showing {filteredProjects.length} of {projectsData.length} projects
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-              Featured <span className="text-gradient">Work</span>
-            </h2>
           </div>
 
           {/* Search & Categories Bar */}
@@ -301,7 +224,7 @@ const Projects = () => {
               role="tablist"
               aria-label="Project categories"
             >
-              {categories.map((cat) => {
+              {PROJECT_CATEGORIES.map((cat) => {
                 const isSelected = selectedCategory === cat;
                 return (
                   <button
@@ -333,7 +256,7 @@ const Projects = () => {
             <div className="max-w-sm mx-auto my-8 p-6 text-center rounded-xl bg-card border border-border shadow-card animate-fade-in">
               <h3 className="font-display text-sm font-bold mb-1">No matching projects found</h3>
               <p className="text-xs text-muted-foreground mb-4">
-                No results found for "{searchQuery}".
+                No results found for &ldquo;{searchQuery}&rdquo;.
               </p>
               <Button
                 onClick={handleResetFilters}
