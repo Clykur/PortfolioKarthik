@@ -1,20 +1,25 @@
 // Runs before `vite dev` and `vite build` (predev/prebuild hooks); writes public/sitemap.xml.
 
-import { writeFileSync } from "fs"
-import { resolve } from "path"
+import { writeFileSync } from "fs";
+import { resolve } from "path";
 
-const BASE_URL = "https://venkataportfolio.lovable.app"
+const BASE_URL = "https://karthiknaramala.clykur.com";
 
 interface SitemapEntry {
-  path: string
-  lastmod?: string
-  changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never"
-  priority?: string
+  path: string;
+  lastmod?: string;
+  changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  priority?: string;
 }
 
 const entries: SitemapEntry[] = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
-]
+  {
+    path: "/",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "weekly",
+    priority: "1.0",
+  },
+];
 
 function generateSitemap(entries: SitemapEntry[]) {
   const urls = entries.map((e) =>
@@ -28,15 +33,15 @@ function generateSitemap(entries: SitemapEntry[]) {
     ]
       .filter(Boolean)
       .join("\n"),
-  )
+  );
 
   return [
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
     ...urls,
     `</urlset>`,
-  ].join("\n")
+  ].join("\n");
 }
 
-writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries))
-console.log(`sitemap.xml written (${entries.length} entries)`)
+writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
+console.log(`sitemap.xml written (${entries.length} entries) for ${BASE_URL}`);

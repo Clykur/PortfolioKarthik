@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- Background -->
+  <rect width="180" height="180" rx="40" fill="#0B0F19"/>
+  
+  <!-- K (White) -->
+  <path d="M42 42V138" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+  <path d="M92 42L42 90L92 138" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- N (Brand Orange) -->
+  <path d="M106 138V42L148 138V42" fill="none" stroke="#FF5722" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

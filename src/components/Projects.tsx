@@ -3,7 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { ExternalLink, Github, Search, X, FolderGit2, SearchX } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Search,
+  X,
+} from "lucide-react";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import resumeImg from "@/assets/resume-website.jpg";
 import portfolioImg from "@/assets/portfolio-website.jpg";
@@ -14,110 +19,125 @@ import edgeDetectionImg from "@/assets/edge-detection.jpg";
 import bouncingBallImg from "@/assets/bouncing-ball-game.jpg";
 import workoutTrackerImg from "@/assets/workout-tracker.jpg";
 
-interface ProjectItem {
+export interface ProjectItem {
   title: string;
   description: string;
   image: string;
   technologies: string[];
   liveLink?: string;
   githubLink: string;
-  category: string;
-  filterTag: "SaaS" | "Venture" | "Systems" | "Web" | "Game" | "Python" | "Research";
+  category: "SaaS & Mobile" | "Studio & Web" | "Systems & Data" | "Experiments";
+  status: "Active Production" | "Deployed" | "Completed" | "Open Source";
 }
 
 const projectsData: ProjectItem[] = [
   {
     title: "CusOwn",
-    description: "Production SaaS — multi-tenant booking & scheduling platform with realtime slot management, analytics, and role-based access.",
+    description: "Production multi-tenant scheduling platform with realtime slot synchronization, PostgreSQL Row-Level Security, and automated client notifications.",
     image: reactAppsImg,
-    technologies: ["React Native", "TypeScript", "Supabase", "PostgreSQL"],
+    technologies: ["React Native", "Expo", "TypeScript", "Supabase", "PostgreSQL"],
     liveLink: "https://cusown.clykur.com/",
     githubLink: "https://github.com/karthiknaramala9949",
-    category: "SaaS · Flagship",
-    filterTag: "SaaS",
+    category: "SaaS & Mobile",
+    status: "Active Production",
   },
   {
-    title: "Clykur",
-    description: "Product engineering studio — shipping web & mobile products for startups and product teams with clear scope and steady delivery.",
+    title: "Clykur Platform",
+    description: "Official web platform for Clykur product engineering studio, featuring edge rendering, performance optimizations, and modern design systems.",
     image: portfolioImg,
-    technologies: ["Next.js", "TypeScript", "Vercel"],
-    liveLink: "https://clykur.com/",
+    technologies: ["Next.js", "TypeScript", "TailwindCSS", "Vercel"],
+    liveLink: "https://www.clykur.com/",
     githubLink: "https://github.com/karthiknaramala9949",
-    category: "Venture",
-    filterTag: "Venture",
+    category: "Studio & Web",
+    status: "Active Production",
   },
   {
-    title: "Booking System Architecture",
-    description: "Realtime slot orchestration, multi-tenant database design, and serverless backend powering CusOwn's reliability at scale.",
-    image: dataScienceImg,
-    technologies: ["Supabase", "PostgreSQL", "Edge Functions"],
-    githubLink: "https://github.com/karthiknaramala9949",
-    category: "Systems",
-    filterTag: "Systems",
-  },
-  {
-    title: "Online Resume",
-    description: "Clean, semantic, responsive online resume showcasing experience, skills, and education.",
-    image: resumeImg,
-    technologies: ["HTML", "CSS"],
-    githubLink: "https://github.com/karthiknaramala9949/resume",
-    category: "Web",
-    filterTag: "Web",
+    title: "React Applications Suite",
+    description: "Decoupled React component library and interactive frontend tools showcasing custom hooks, component composition, and responsive state flows.",
+    image: reactAppsImg,
+    technologies: ["React", "JavaScript", "Custom Hooks", "State Machines"],
+    githubLink: "https://github.com/karthiknaramala9949/React-Applications",
+    category: "Studio & Web",
+    status: "Open Source",
   },
   {
     title: "Workout Tracker",
-    description: "Fitness web app to log workouts, monitor exercise progress, and track routines over time.",
+    description: "Focused fitness logging web app to record workout sets, monitor exercise progress, and persist session history via localStorage.",
     image: workoutTrackerImg,
-    technologies: ["HTML", "CSS", "JavaScript"],
+    technologies: ["JavaScript ES6", "HTML5", "CSS3", "LocalStorage API"],
     githubLink: "https://github.com/karthiknaramala9949/Workout_Tracker",
-    category: "Web",
-    filterTag: "Web",
+    category: "Studio & Web",
+    status: "Open Source",
   },
   {
-    title: "Bouncing Ball Game",
-    description: "Interactive JavaScript arcade game with physics-based mechanics and score tracking on Canvas.",
+    title: "Bouncing Ball Physics Engine",
+    description: "Realtime 2D physics simulation on HTML5 Canvas implementing elastic kinetic collisions, gravity vectors, and continuous animation loops.",
     image: bouncingBallImg,
-    technologies: ["JavaScript", "Canvas"],
+    technologies: ["JavaScript", "HTML5 Canvas", "Physics Kinematics"],
     githubLink: "https://github.com/karthiknaramala9949/Bouncing_Ball_Game",
-    category: "Game",
-    filterTag: "Game",
+    category: "Experiments",
+    status: "Open Source",
   },
   {
-    title: "BMI Calculator",
-    description: "Body Mass Index calculator built in Jupyter with data analysis and health recommendations.",
+    title: "BMI Calculator & Health Analytics",
+    description: "Python computation workflows and Jupyter data analysis calculating anthropometric health metrics, risk classifications, and data distributions.",
     image: bmiCalculatorImg,
-    technologies: ["Python", "Jupyter"],
+    technologies: ["Python", "Jupyter", "Pandas", "NumPy"],
     githubLink: "https://github.com/karthiknaramala9949/BMI_Calculator",
-    category: "Python",
-    filterTag: "Python",
+    category: "Systems & Data",
+    status: "Completed",
   },
   {
-    title: "DCT-FP Edge Detection",
-    description: "Image processing research using DCT-FP fusion algorithms for enhanced edge detection in MATLAB.",
+    title: "DCT-FP Edge Detection System",
+    description: "Discrete Cosine Transform with Fractional Poisson (DCT-FP) fusion research in MATLAB for high-frequency edge detection in noisy imagery.",
     image: edgeDetectionImg,
-    technologies: ["MATLAB", "Image Processing"],
+    technologies: ["MATLAB", "Image Processing", "Signal Processing", "Algorithms"],
     githubLink: "https://github.com/karthiknaramala9949/Project_Code",
-    category: "Research",
-    filterTag: "Research",
+    category: "Systems & Data",
+    status: "Completed",
+  },
+  {
+    title: "Web Development Projects Suite",
+    description: "Curated collection of responsive UI prototypes, semantic HTML layouts, CSS Grid architectures, and frontend design patterns.",
+    image: resumeImg,
+    technologies: ["HTML5", "CSS3", "Responsive Design", "Flexbox/Grid"],
+    githubLink: "https://github.com/karthiknaramala9949/Web-Development-Projects",
+    category: "Studio & Web",
+    status: "Open Source",
+  },
+  {
+    title: "YBI Foundation ML Workflows",
+    description: "Supervised machine learning pipelines, exploratory data analysis benchmarks, and feature engineering implementations in Python.",
+    image: dataScienceImg,
+    technologies: ["Python", "Scikit-learn", "Pandas", "Jupyter"],
+    githubLink: "https://github.com/karthiknaramala9949/YBI-Foundation-Internship",
+    category: "Systems & Data",
+    status: "Completed",
   },
 ];
 
-const categories = ["All", "SaaS", "Venture", "Systems", "Web", "Game", "Python", "Research"] as const;
+const categories = [
+  "All",
+  "SaaS & Mobile",
+  "Studio & Web",
+  "Systems & Data",
+  "Experiments",
+] as const;
 
 const ProjectCard = ({ project }: { project: ProjectItem }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   return (
-    <Card className="card-elevated hover-lift overflow-hidden group flex flex-col h-full">
-      <div className="relative overflow-hidden bg-muted/30 aspect-[16/10]">
+    <Card className="card-elevated hover-lift overflow-hidden group flex flex-col h-full border border-border/80">
+      {/* Thumbnail */}
+      <div className="relative overflow-hidden bg-muted/30 aspect-[16/9]">
         {!imageLoaded && !imageError && (
-          <div className="absolute inset-0 bg-muted/60 animate-pulse flex items-center justify-center" />
+          <div className="absolute inset-0 bg-muted/40 animate-pulse flex items-center justify-center" />
         )}
         {imageError ? (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-secondary/40 text-muted-foreground p-4 text-center">
-            <FolderGit2 className="h-8 w-8 text-primary/60 mb-1" />
-            <span className="text-xs font-medium">{project.title}</span>
+          <div className="w-full h-full flex items-center justify-center bg-secondary/40 text-muted-foreground p-3 text-center">
+            <span className="text-xs font-mono font-medium">{project.title}</span>
           </div>
         ) : (
           <img
@@ -125,40 +145,46 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
             alt={project.title}
             loading="lazy"
             decoding="async"
-            width={640}
-            height={400}
+            width={480}
+            height={270}
             onLoad={() => setImageLoaded(true)}
             onError={() => setImageError(true)}
-            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+            className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-103 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
         )}
+
         <Badge
           variant="secondary"
-          className="absolute top-2.5 right-2.5 text-[10px] font-medium bg-background/90 text-foreground backdrop-blur-md border border-border/50 shadow-sm"
+          className="absolute top-2 right-2 text-[9px] font-mono font-medium bg-background/90 text-foreground backdrop-blur-md border border-border/60 py-0"
         >
-          {project.category}
+          {project.status}
         </Badge>
       </div>
 
-      <CardHeader className="p-4 pb-2">
-        <CardTitle className="text-base font-display font-semibold leading-snug group-hover:text-primary transition-colors">
-          {project.title}
-        </CardTitle>
+      <CardHeader className="p-4 pb-1">
+        <div className="flex items-start justify-between gap-2">
+          <CardTitle className="text-base font-display font-bold group-hover:text-primary transition-colors leading-tight">
+            {project.title}
+          </CardTitle>
+          <span className="text-[10px] font-mono text-muted-foreground shrink-0">
+            {project.category}
+          </span>
+        </div>
       </CardHeader>
 
-      <CardContent className="p-4 pt-0 flex-1 flex flex-col justify-between">
-        <div>
-          <p className="text-muted-foreground text-xs sm:text-sm mb-3.5 line-clamp-2 leading-relaxed">
+      <CardContent className="p-4 pt-0 flex-1 flex flex-col justify-between space-y-3">
+        <div className="space-y-2.5">
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
             {project.description}
           </p>
 
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="flex flex-wrap gap-1">
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="text-[10px] px-2 py-0.5 rounded bg-secondary/80 text-foreground/80 font-mono border border-border/50"
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-secondary/70 text-foreground border border-border/50"
               >
                 {tech}
               </span>
@@ -166,27 +192,35 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
           </div>
         </div>
 
-        <div className="flex gap-2 pt-2 border-t border-border/40">
+        {/* CTA Buttons */}
+        <div className="flex items-center gap-2 pt-2 border-t border-border/50">
           {project.liveLink && (
-            <Button size="sm" className="flex-1 h-8 text-xs glow-primary" asChild>
-              <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-3 w-3 mr-1.5" /> Live
+            <Button size="sm" className="flex-1 h-7 text-[11px] glow-primary font-medium" asChild>
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Live Demo of ${project.title}`}
+              >
+                <ExternalLink className="h-3 w-3 mr-1" /> Live Demo
               </a>
             </Button>
           )}
           <Button
             size="sm"
             variant="outline"
-            className={`h-8 text-xs ${project.liveLink ? "flex-1" : "w-full"}`}
+            className={`h-7 text-[11px] font-medium border-border hover:border-primary/40 ${
+              project.liveLink ? "flex-1" : "w-full"
+            }`}
             asChild
           >
             <a
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`View ${project.title} on GitHub`}
+              aria-label={`Source Code of ${project.title} on GitHub`}
             >
-              <Github className="h-3 w-3 mr-1.5" /> Source
+              <Github className="h-3 w-3 mr-1" /> Source Code
             </a>
           </Button>
         </div>
@@ -204,7 +238,7 @@ const Projects = () => {
     const q = searchQuery.toLowerCase().trim();
     return projectsData.filter((project) => {
       const matchesCategory =
-        selectedCategory === "All" || project.filterTag === selectedCategory;
+        selectedCategory === "All" || project.category === selectedCategory;
       const matchesSearch =
         !q ||
         project.title.toLowerCase().includes(q) ||
@@ -222,123 +256,94 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-16 sm:py-24 bg-secondary/10">
+    <section id="projects" className="py-12 sm:py-16 bg-secondary/10">
       <div
         ref={ref}
         className={`container mx-auto px-4 sm:px-6 section-animate ${visible ? "visible" : ""}`}
       >
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-3 text-xs font-medium uppercase tracking-wider rounded-full bg-primary/10 text-primary border border-primary/20">
-            Portfolio Showcase
+        <div className="max-w-6xl mx-auto space-y-6">
+          {/* Header */}
+          <div>
+            <span className="text-xs font-mono font-medium text-primary uppercase tracking-wider block mb-1">
+              Projects &amp; Systems
+            </span>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+              Featured <span className="text-gradient">Work</span>
+            </h2>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto text-sm sm:text-base">
-            Real production SaaS, mobile applications, system architectures & research code.
-          </p>
-        </div>
 
-        {/* Filter and Search Bar */}
-        <div className="max-w-4xl mx-auto mb-8 space-y-4">
+          {/* Search & Categories Bar */}
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
-            {/* Search Input */}
             <div className="relative w-full sm:max-w-xs">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
               <Input
                 type="text"
                 placeholder="Search projects or tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 pr-8 h-9 text-xs sm:text-sm bg-background/80 border-border"
+                className="pl-8 pr-7 h-9 text-xs bg-background border-border font-mono"
                 aria-label="Search projects by title, description or technology"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5"
-                  aria-label="Clear search query"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5"
+                  aria-label="Clear search input"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X className="h-3 w-3" />
                 </button>
               )}
             </div>
 
-            {/* Results Count */}
-            <div className="text-xs text-muted-foreground whitespace-nowrap self-end sm:self-center">
-              Showing <span className="font-semibold text-foreground">{filteredProjects.length}</span> of{" "}
-              {projectsData.length} projects
+            {/* Category Pills */}
+            <div
+              className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none"
+              role="tablist"
+              aria-label="Project categories"
+            >
+              {categories.map((cat) => {
+                const isSelected = selectedCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    role="tab"
+                    aria-selected={isSelected}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-3 py-1 rounded-md text-[11px] font-medium whitespace-nowrap transition-all border font-mono ${
+                      isSelected
+                        ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                        : "bg-background text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Category Filter Pills */}
-          <div
-            className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-none"
-            role="tablist"
-            aria-label="Project categories"
-          >
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  role="tab"
-                  aria-selected={isSelected}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 border ${
-                    isSelected
-                      ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                      : "bg-background/80 text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Projects Grid OR Empty State */}
-        {filteredProjects.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
-        ) : (
-          /* Dedicated No Search Results State */
-          <div className="max-w-md mx-auto my-12 p-8 text-center rounded-2xl bg-card border border-border shadow-sm animate-fade-in">
-            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
-              <SearchX className="h-6 w-6" />
+          {/* Project Grid */}
+          {filteredProjects.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredProjects.map((project) => (
+                <ProjectCard key={project.title} project={project} />
+              ))}
             </div>
-            <h3 className="font-display text-lg font-bold mb-2">No matching projects found</h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-6 leading-relaxed">
-              {searchQuery ? (
-                <>
-                  No results found for <span className="font-semibold text-foreground">"{searchQuery}"</span>
-                  {selectedCategory !== "All" && ` in category "${selectedCategory}"`}.
-                </>
-              ) : (
-                <>No projects found in category "{selectedCategory}".</>
-              )}
-              <br />
-              Try searching for a different skill or reset all filters.
-            </p>
-            <Button onClick={handleResetFilters} size="sm" variant="default" className="glow-primary text-xs">
-              <X className="h-3.5 w-3.5 mr-1.5" />
-              Reset Search & Filters
-            </Button>
-          </div>
-        )}
-
-        {/* GitHub CTA */}
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="h-11 text-sm border-border hover:border-primary/50" asChild>
-            <a href="https://github.com/karthiknaramala9949" target="_blank" rel="noopener noreferrer">
-              <Github className="mr-2 h-4 w-4" />
-              View All Repositories on GitHub
-            </a>
-          </Button>
+          ) : (
+            <div className="max-w-sm mx-auto my-8 p-6 text-center rounded-xl bg-card border border-border shadow-card animate-fade-in">
+              <h3 className="font-display text-sm font-bold mb-1">No matching projects found</h3>
+              <p className="text-xs text-muted-foreground mb-4">
+                No results found for "{searchQuery}".
+              </p>
+              <Button
+                onClick={handleResetFilters}
+                size="sm"
+                className="glow-primary text-xs font-mono h-8"
+              >
+                Reset Search
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </section>
