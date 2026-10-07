@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Projects from "@/components/Projects";
+import About from "@/components/About";
+import Experience from "@/components/Experience";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
 import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
 import GithubSection from "@/components/GithubSection";
-import ClykurSection from "@/components/ClykurSection";
 import Principles from "@/components/Principles";
-import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -20,7 +20,7 @@ const jsonLdData = {
       name: "Karthik Naramala",
       alternateName: "Venkata Karthik Naramala",
       url: "https://karthiknaramala.clykur.com/",
-      jobTitle: "Software Engineer & Product Builder",
+      jobTitle: "Software Developer & Product Builder",
       email: "karthik.naramala@clykur.com",
       worksFor: {
         "@type": "Organization",
@@ -30,11 +30,13 @@ const jsonLdData = {
       sameAs: [
         "https://github.com/karthiknaramala9949",
         "https://www.linkedin.com/in/venkata-karthik-naramala-a35a7a224/",
+        "https://x.com/karthik_naramala",
         "https://www.clykur.com/",
       ],
       knowsAbout: [
         "React Native",
         "TypeScript",
+        "Next.js",
         "Supabase",
         "PostgreSQL",
         "Node.js",
@@ -51,7 +53,7 @@ const jsonLdData = {
       url: "https://karthiknaramala.clykur.com/",
       name: "Karthik Naramala Portfolio",
       description:
-        "Personal developer portfolio of Karthik Naramala, Software Engineer and Co-founder @ Clykur.",
+        "Editorial portfolio of Karthik Naramala — Software Developer & Product Builder.",
       publisher: {
         "@id": "https://karthiknaramala.clykur.com/#person",
       },
@@ -61,26 +63,27 @@ const jsonLdData = {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/15 selection:text-primary">
       <Helmet>
-        <title>Karthik Naramala — Software Engineer &amp; Product Builder</title>
+        <title>Karthik Naramala — Software Developer &amp; Product Builder</title>
         <meta
           name="description"
-          content="Karthik Naramala — Co-founder @ Clykur. Software engineer building production-grade mobile and web systems with React Native, TypeScript, Supabase & PostgreSQL."
+          content="Karthik Naramala — Software developer and product builder. Building thoughtful digital products from interfaces to production-ready web and mobile systems."
         />
         <link rel="canonical" href="https://karthiknaramala.clykur.com/" />
-        <meta property="og:title" content="Karthik Naramala — Software Engineer &amp; Product Builder" />
+        <meta property="og:title" content="Karthik Naramala — Software Developer &amp; Product Builder" />
         <meta
           property="og:description"
-          content="Co-founder @ Clykur. Software engineer building production software from idea to deployment with React Native, TypeScript, Supabase & PostgreSQL."
+          content="Software developer & product builder. Building thoughtful digital products, from interfaces to production-ready web applications."
         />
         <meta property="og:url" content="https://karthiknaramala.clykur.com/" />
         <meta property="og:type" content="profile" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Karthik Naramala — Software Engineer &amp; Product Builder" />
+        <meta name="twitter:site" content="@karthik_naramala" />
+        <meta name="twitter:title" content="Karthik Naramala — Software Developer &amp; Product Builder" />
         <meta
           name="twitter:description"
-          content="Co-founder @ Clykur. Software engineer building production software from idea to deployment with React Native, TypeScript, Supabase & PostgreSQL."
+          content="Software developer & product builder. Building thoughtful digital products, from interfaces to production-ready web applications."
         />
         <script type="application/ld+json">{JSON.stringify(jsonLdData)}</script>
       </Helmet>
@@ -88,13 +91,13 @@ const Index = () => {
       <Header />
       <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
+        <Projects />
+        <About />
+        <Experience />
         <CurrentlyBuilding />
         <Skills />
-        <Projects />
         <GithubSection />
-        <ClykurSection />
         <Principles />
-        <Experience />
         <Contact />
       </main>
       <Footer />

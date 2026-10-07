@@ -1,158 +1,86 @@
-import portfolioImg from "@/assets/portfolio-website.jpg";
-import reactAppsImg from "@/assets/react-applications.jpg";
-import bmiCalculatorImg from "@/assets/bmi-calculator.jpg";
-import dataScienceImg from "@/assets/data-science-project.jpg";
-import resumeImg from "@/assets/resume-website.jpg";
-import workshopImg from "@/assets/workshop-projects.jpg";
-
-export type ProjectCategory =
-  | "SaaS & Platforms"
-  | "AI & SaaS"
-  | "Web Apps"
-  | "Client & Studio";
-
-export type ProjectStatus =
-  | "Active Production"
-  | "Deployed"
-  | "Open Source";
+import cusownImg from "@/assets/cusown-dashboard.jpg";
+import ledgerosImg from "@/assets/ledgeros-dashboard.jpg";
+import clykurStudioImg from "@/assets/clykur-studio-platform.jpg";
+import neevLibraryImg from "@/assets/neev-digital-library.jpg";
+import drapevaSareeImg from "@/assets/drapeva-saree-platform.jpg";
+import careernovaImg from "@/assets/careernova-dashboard.jpg";
 
 export interface ProjectItem {
   title: string;
+  category: string;
   description: string;
-  image?: string;
+  purpose: string;
+  image: string;
   technologies: string[];
   liveLink?: string;
-  githubLink: string;
-  category: ProjectCategory;
-  status: ProjectStatus;
+  githubLink?: string;
   featured?: boolean;
 }
 
-export const PROJECT_CATEGORIES = [
-  "All",
-  "SaaS & Platforms",
-  "AI & SaaS",
-  "Web Apps",
-  "Client & Studio",
-] as const;
-
-export const projectsData: ProjectItem[] = [
+export const selectedProjects: ProjectItem[] = [
   {
     title: "CusOwn",
-    description:
-      "Production multi-tenant scheduling & booking platform with realtime slot synchronization, PostgreSQL Row-Level Security, and automated client notifications.",
-    image: reactAppsImg,
-    technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "TailwindCSS", "Zustand"],
+    category: "Slot Booking Platform",
+    description: "Production multi-tenant slot booking & scheduling infrastructure with realtime availability synchronization.",
+    purpose: "Eliminates double-booking race conditions under high concurrent demand using optimistic concurrency control, PostgreSQL Row-Level Security, and automated multi-channel client alerts.",
+    image: cusownImg,
+    technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "Zustand"],
     liveLink: "https://cusown.clykur.com",
     githubLink: "https://github.com/Clykur/CusOwn",
-    category: "SaaS & Platforms",
-    status: "Active Production",
     featured: true,
   },
   {
     title: "LedgerOS",
-    description:
-      "AI-powered financial operating system for SaaS founders and startups, featuring interactive what-if financial simulators, runway forecasting, and PDF export reports.",
-    image: bmiCalculatorImg,
-    technologies: ["Next.js", "React", "TypeScript", "TailwindCSS", "Recharts", "Framer Motion", "jsPDF", "Zod"],
+    category: "AI Financial Systems",
+    description: "AI-powered financial operating system for startup founders and early-stage ventures.",
+    purpose: "Replaces fragmented spreadsheets with predictive burn-rate telemetry, interactive what-if financial modeling simulators, and verifiable PDF investor reports.",
+    image: ledgerosImg,
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Recharts", "Framer Motion", "jsPDF"],
     liveLink: "https://ledgeros.clykur.com",
     githubLink: "https://github.com/Clykur/LedgerOS",
-    category: "AI & SaaS",
-    status: "Active Production",
-    featured: true,
-  },
-  {
-    title: "Neev — Phygital Library",
-    description:
-      "Smart library ecosystem fusing physical book tracking with digital cataloging, featuring interactive shelf-locator floor maps, RFID telemetry, and Gemini AI bookmark scanners.",
-    image: workshopImg,
-    technologies: ["React", "TypeScript", "Supabase", "PostgreSQL", "Google Gemini API", "TanStack Query", "TailwindCSS"],
-    liveLink: "https://nev-phygital-library.vercel.app",
-    githubLink: "https://github.com/Clykur/nev-phygital-library",
-    category: "SaaS & Platforms",
-    status: "Active Production",
     featured: true,
   },
   {
     title: "Clykur Studio Platform",
-    description:
-      "Official web platform for Clykur product engineering studio, featuring Google GenAI assistant integration, edge rendering, and smooth Lenis & GSAP scroll physics.",
-    image: portfolioImg,
-    technologies: ["Next.js", "React", "TypeScript", "TailwindCSS", "Framer Motion", "GSAP", "Google GenAI SDK", "Supabase"],
+    category: "Company Studio Platform",
+    description: "Official company website and client portal for Clykur, an AI-native digital product engineering studio.",
+    purpose: "Engineered for sub-second edge response times with Google GenAI assistant integration, structured project intake pipelines, and fluid GPU-accelerated interaction physics.",
+    image: clykurStudioImg,
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Google GenAI SDK", "Supabase"],
     liveLink: "https://www.clykur.com",
     githubLink: "https://github.com/Clykur/Website",
-    category: "Web Apps",
-    status: "Active Production",
-    featured: true,
+    featured: false,
   },
   {
     title: "Drapeva",
-    description:
-      "Full-stack custom tailoring and fashion commerce platform organized as an npm monorepo with Next.js App Router, Express API services, Razorpay checkout, and Supabase.",
-    image: reactAppsImg,
-    technologies: ["Next.js", "React", "TypeScript", "Node.js", "Express", "Supabase", "GSAP", "Razorpay", "TailwindCSS"],
+    category: "Saree E-Commerce Platform",
+    description: "Direct-to-consumer premium Indian saree and ethnic wear digital storefront.",
+    purpose: "Engineered as an e-commerce platform showcasing authentic handloom weaves (Kanjivaram, Banarasi, Chanderi) with high-res fabric detail previews, Razorpay checkout, and monorepo order processing.",
+    image: drapevaSareeImg,
+    technologies: ["Next.js", "React", "TypeScript", "Node.js", "Express", "Supabase", "Razorpay"],
+    liveLink: "https://drapeva.in",
     githubLink: "https://github.com/Clykur/drapeva",
-    category: "Web Apps",
-    status: "Open Source",
-    featured: true,
+    featured: false,
+  },
+  {
+    title: "Neev",
+    category: "Digital Library Platform",
+    description: "Modern digital library discovery, cataloging, and reading management platform.",
+    purpose: "Streamlines digital book borrowing and exploration with catalog search across academic and literature collections, reading progress tracking, and Gemini AI book analysis.",
+    image: neevLibraryImg,
+    technologies: ["React", "TypeScript", "Supabase", "PostgreSQL", "Google Gemini API", "TanStack Query"],
+    liveLink: "https://nev-phygital-library.vercel.app",
+    githubLink: "https://github.com/Clykur/nev-phygital-library",
+    featured: false,
   },
   {
     title: "CareerNova",
-    description:
-      "AI-assisted career acceleration platform featuring automated resume optimization, structured job discovery workflows, and AI interview prep powered by OpenAI and Supabase.",
-    image: dataScienceImg,
-    technologies: ["React", "Vite", "TypeScript", "Express", "Drizzle ORM", "PostgreSQL", "OpenAI API", "Supabase"],
+    category: "AI Talent Systems",
+    description: "AI-assisted career acceleration platform with structured discovery and preparation.",
+    purpose: "Streamlines technical recruitment preparation through LLM-assisted resume optimization, ATS structural analysis, and interactive technical interview simulations.",
+    image: careernovaImg,
+    technologies: ["React", "Vite", "TypeScript", "Express", "Drizzle ORM", "PostgreSQL", "OpenAI API"],
     githubLink: "https://github.com/Clykur/CareerNova-Beta",
-    category: "AI & SaaS",
-    status: "Open Source",
-    featured: true,
-  },
-  {
-    title: "Trust Builder",
-    description:
-      "Social proof and reputation management SaaS enabling businesses to collect, verify, and embed interactive testimonial widgets and conversion badges.",
-    image: reactAppsImg,
-    technologies: ["React", "TypeScript", "Express", "Drizzle ORM", "Supabase", "TanStack Query", "TailwindCSS"],
-    liveLink: "https://trustbuilder.clykur.com",
-    githubLink: "https://github.com/Clykur/Trust-Builder",
-    category: "SaaS & Platforms",
-    status: "Active Production",
-    featured: true,
-  },
-  {
-    title: "GreyLabs AI",
-    description:
-      "Speech intelligence and automated acoustic analytics showcase for BFSI (banks & fintechs), featuring reactive audio insight previews and modern UI engineering.",
-    image: dataScienceImg,
-    technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "Framer Motion", "Lucide React"],
-    liveLink: "https://greylabsai.vercel.app",
-    githubLink: "https://github.com/Clykur/GreyLabs-AI",
-    category: "AI & SaaS",
-    status: "Deployed",
-    featured: false,
-  },
-  {
-    title: "Clykur Manufacturing",
-    description:
-      "Modern digital manufacturing and precision engineering portal with interactive component catalogs, CNC capability calculators, and instant quote inquiry pipelines.",
-    image: workshopImg,
-    technologies: ["Next.js", "React", "TypeScript", "TailwindCSS", "Framer Motion", "Lucide React", "Zod"],
-    liveLink: "https://manufacturing1.clykur.com",
-    githubLink: "https://github.com/Clykur/Clykur-Manufacturing",
-    category: "Web Apps",
-    status: "Active Production",
-    featured: false,
-  },
-  {
-    title: "NOIR Atelier",
-    description:
-      "Minimalist luxury streetwear and bespoke apparel e-commerce experience with interactive cart drawer, smooth fluid transitions, and responsive product showcases.",
-    image: resumeImg,
-    technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "Framer Motion", "Wouter", "Radix UI"],
-    liveLink: "https://noiratelier.clykur.com",
-    githubLink: "https://github.com/Clykur/NOIR-Atelier",
-    category: "Client & Studio",
-    status: "Active Production",
     featured: false,
   },
 ];

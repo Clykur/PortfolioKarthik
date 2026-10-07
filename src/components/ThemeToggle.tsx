@@ -1,5 +1,4 @@
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -12,34 +11,24 @@ export const ThemeToggle = ({ className = "" }: { className?: string }) => {
   }, []);
 
   if (!mounted) {
-    return (
-      <Button
-        variant="ghost"
-        size="icon"
-        className={`h-9 w-9 text-muted-foreground ${className}`}
-        aria-label="Toggle theme"
-      >
-        <span className="h-4 w-4" />
-      </Button>
-    );
+    return <div className={`w-8 h-8 ${className}`} aria-hidden="true" />;
   }
 
   const isDark = resolvedTheme === "dark";
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
+      type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`h-9 w-9 text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors ${className}`}
+      className={`inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-foreground transition-colors subtle-ring ${className}`}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       title={isDark ? "Switch to light theme" : "Switch to dark theme"}
     >
       {isDark ? (
-        <Sun className="h-4 w-4 text-amber-400 transition-transform duration-300 hover:rotate-45" />
+        <Sun className="h-4 w-4" strokeWidth={1.75} />
       ) : (
-        <Moon className="h-4 w-4 text-slate-700 transition-transform duration-300 hover:-rotate-12" />
+        <Moon className="h-4 w-4" strokeWidth={1.75} />
       )}
-    </Button>
+    </button>
   );
 };

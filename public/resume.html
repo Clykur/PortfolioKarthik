@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karthik Naramala — Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #11151c;
+      --muted: #525866;
+      --border: #e2e5ea;
+      --accent: #e64a19;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c0e14;
+        --fg: #eff2f6;
+        --muted: #828a99;
+        --border: #1e2330;
+        --accent: #ea5525;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      padding: 3rem 1.5rem;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+    }
+
+    .btn:hover {
+      border-color: var(--fg);
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .meta-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+    }
+
+    .meta-links a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .meta-links a:hover {
+      color: var(--accent);
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .item {
+      margin-bottom: 1.5rem;
+    }
+
+    .item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .item-title {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .item-company {
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .item-date {
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+    }
+
+    p.desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    ul.bullets {
+      margin-top: 6px;
+      padding-left: 1.25rem;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    ul.bullets li {
+      margin-bottom: 4px;
+    }
+
+    .tech-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      row-gap: 8px;
+      font-size: 13px;
+    }
+
+    .skill-cat {
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .skill-items {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #fff;
+        color: #000;
+      }
+
+      .actions {
+        display: none;
+      }
+
+      :root {
+        --bg: #fff;
+        --fg: #000;
+        --muted: #444;
+        --border: #ccc;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="actions">
+      <button class="btn" onclick="window.print()">Print / Save PDF</button>
+      <a class="btn" href="/">Return to Portfolio</a>
+    </div>
+
+    <header>
+      <h1>Karthik Naramala</h1>
+      <p class="subtitle">Software Developer &amp; Product Builder</p>
+      <div class="meta-links">
+        <span>Bangalore, India</span>
+        <span>&bull;</span>
+        <a href="mailto:karthik.naramala@clykur.com">karthik.naramala@clykur.com</a>
+        <span>&bull;</span>
+        <a href="https://github.com/karthiknaramala9949" target="_blank">github.com/karthiknaramala9949</a>
+        <span>&bull;</span>
+        <a href="https://karthiknaramala.clykur.com" target="_blank">karthiknaramala.clykur.com</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Co-Founder &amp; Software Developer</span> &mdash; <span
+              class="item-company">Clykur</span>
+          </div>
+          <span class="item-date">2024 &mdash; Present</span>
+        </div>
+        <p class="desc">Digital product engineering studio building high-performance web, mobile, and SaaS
+          architectures.</p>
+        <ul class="bullets">
+          <li>Architected and shipped production applications from initial schema to multi-tenant deployment.</li>
+          <li>Engineered scalable database models, PostgreSQL Row-Level Security (RLS) policies, and edge-rendered
+            Next.js platforms.</li>
+          <li>Led full-cycle product engineering across React Native, Supabase, and TypeScript environments.</li>
+        </ul>
+        <div class="tech-pill">TypeScript &bull; React Native &bull; Next.js &bull; Supabase &bull; PostgreSQL &bull;
+          Docker</div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Mobile &amp; Systems Engineer</span> &mdash; <span
+              class="item-company">CusOwn</span>
+          </div>
+          <span class="item-date">2024 &mdash; Present</span>
+        </div>
+        <p class="desc">Production multi-tenant appointment scheduling and client management SaaS.</p>
+        <ul class="bullets">
+          <li>Engineered optimistic concurrency reservation pipeline preventing double bookings under high concurrent
+            traffic.</li>
+          <li>Architected offline-first mobile client synchronization using React Native and Supabase Realtime channels.
+          </li>
+        </ul>
+        <div class="tech-pill">React Native &bull; Expo &bull; TypeScript &bull; Supabase &bull; PostgreSQL</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">CusOwn &mdash; Slot Booking Platform</span>
+          </div>
+          <span class="item-date">cusown.clykur.com</span>
+        </div>
+        <p class="desc">Multi-tenant slot booking and appointment scheduling platform with realtime slot availability synchronization, automated notifications, and PostgreSQL RLS.</p>
+        <div class="tech-pill">Next.js &bull; TypeScript &bull; Supabase &bull; PostgreSQL &bull; TailwindCSS</div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Drapeva &mdash; Saree E-Commerce Platform</span>
+          </div>
+          <span class="item-date">drapeva.in</span>
+        </div>
+        <p class="desc">Direct-to-consumer premium Indian saree and ethnic wear e-commerce platform showcasing authentic handloom weaves with high-res fabric previews and Razorpay checkout.</p>
+        <div class="tech-pill">Next.js &bull; React &bull; TypeScript &bull; Node.js &bull; Express &bull; Supabase &bull; Razorpay</div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Neev &mdash; Digital Library Platform</span>
+          </div>
+          <span class="item-date">nev-phygital-library.vercel.app</span>
+        </div>
+        <p class="desc">Modern digital library discovery, cataloging, and reading management platform with catalog search across collections, reading progress tracking, and Gemini AI analysis.</p>
+        <div class="tech-pill">React &bull; TypeScript &bull; Supabase &bull; Gemini API &bull; TanStack Query</div>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">LedgerOS &mdash; Financial OS for Founders</span>
+          </div>
+          <span class="item-date">ledgeros.clykur.com</span>
+        </div>
+        <p class="desc">AI-assisted financial modeling platform featuring runway forecasting, interactive scenario simulators, and automated PDF reports.</p>
+        <div class="tech-pill">Next.js &bull; TypeScript &bull; Recharts &bull; Framer Motion &bull; jsPDF</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Technical Capabilities</h2>
+      <div class="skills-grid">
+        <span class="skill-cat">Languages</span>
+        <span class="skill-items">TypeScript, JavaScript, Python, SQL, HTML5, CSS3</span>
+
+        <span class="skill-cat">Frontend</span>
+        <span class="skill-items">React, Next.js, React Native, Expo, Tailwind CSS</span>
+
+        <span class="skill-cat">Backend</span>
+        <span class="skill-items">Node.js, Express, REST APIs, Supabase, Edge Functions</span>
+
+        <span class="skill-cat">Database &amp; Cloud</span>
+        <span class="skill-items">PostgreSQL, Supabase RLS, Cloudflare, Docker, Vercel</span>
+
+        <span class="skill-cat">Tooling</span>
+        <span class="skill-items">Git, GitHub, Vite, Postman, Linux</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">B.Tech in Computer Science &amp; Engineering</span>
+          </div>
+          <span class="item-date">2022 &mdash; 2026</span>
+        </div>
+        <p class="desc">Focus on distributed systems, relational databases, data structures, and computer networking.
+        </p>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>

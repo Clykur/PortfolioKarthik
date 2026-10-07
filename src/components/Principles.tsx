@@ -1,92 +1,76 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { useSectionReveal } from "@/hooks/useSectionReveal";
+interface Principle {
+  step: string;
+  title: string;
+  description: string;
+}
 
-const principles = [
+const principles: Principle[] = [
   {
-    num: "01",
-    title: "Solve Real Problems First",
-    detail: "Code is a liability; solving user friction reliably is the only metric that matters.",
+    step: "01",
+    title: "Understand the problem",
+    description:
+      "Code is an operational liability. Dig into the root operational friction, business constraints, and real user requirements before architecting solutions.",
   },
   {
-    num: "02",
-    title: "Reliability Over Hype",
-    detail: "Battle-tested foundations (PostgreSQL, TypeScript, strong schemas) outlive ephemeral trends.",
+    step: "02",
+    title: "Build the simplest useful version",
+    description:
+      "Avoid premature abstraction. Engineer a robust, focused foundation with strong schema invariants and predictable data flow, then expand incrementally.",
   },
   {
-    num: "03",
-    title: "Performance is a Feature",
-    detail: "Low latency, instant queries, and lean bundles directly drive user trust and retention.",
+    step: "03",
+    title: "Ship",
+    description:
+      "Real software running in production beats theoretical perfection. Deploy early with automated testing, telemetry, and predictable rollbacks.",
   },
   {
-    num: "04",
-    title: "Good UX is Engineering",
-    detail: "Fluid micro-interactions, zero layout shifts, and predictable state transitions define quality.",
+    step: "04",
+    title: "Learn from feedback",
+    description:
+      "Listen to user behavior and monitor production telemetry. Real interaction patterns reveal the actual bottlenecks that matter.",
   },
   {
-    num: "05",
-    title: "Simple Beats Clever",
-    detail: "Readable, maintainable code with clear boundaries beats overly complex abstractions.",
-  },
-  {
-    num: "06",
-    title: "Ship & Iterate Rapidly",
-    detail: "Real production feedback from live users is worth more than months of unvalidated speculation.",
-  },
-  {
-    num: "07",
-    title: "Data Integrity is Sacred",
-    detail: "Enforce invariants at the database level with strict constraints, foreign keys, and RLS.",
-  },
-  {
-    num: "08",
-    title: "Build for Scalable Growth",
-    detail: "Decouple modules cleanly so the system can scale effortlessly without massive rewrites.",
+    step: "05",
+    title: "Iterate",
+    description:
+      "Refine performance, accessibility, and reliability with relentless craft. Great products are the outcome of consistent, disciplined compound improvements.",
   },
 ];
 
-const Principles = () => {
-  const { ref, visible } = useSectionReveal();
-
+export const Principles = () => {
   return (
-    <section id="principles" className="py-12 sm:py-16">
-      <div
-        ref={ref}
-        className={`container mx-auto px-4 sm:px-6 section-animate ${visible ? "visible" : ""}`}
-      >
-        <div className="max-w-6xl mx-auto space-y-6">
-          <div>
-            <span className="text-xs font-mono font-medium text-primary uppercase tracking-wider block mb-1">
-              Engineering Mindset
+    <section id="principles" className="py-20 lg:py-28 border-t border-border/60">
+      <div className="portfolio-wrap">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
+          {/* Label (3 cols) */}
+          <div className="lg:col-span-3">
+            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
+              How I Build
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-              Core <span className="text-gradient">Principles</span>
-            </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {principles.map((p) => (
-              <Card
-                key={p.num}
-                className="card-elevated hover-lift border border-border/80 flex flex-col justify-between"
-              >
-                <CardContent className="p-4 flex flex-col justify-between h-full space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-primary px-1.5 py-0.5 rounded bg-primary/10 border border-primary/20">
-                      {p.num}
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="font-display text-xs font-bold text-foreground mb-1 leading-snug">
-                      {p.title}
+          {/* Typographic Philosophy (9 cols) */}
+          <div className="lg:col-span-9 space-y-8 max-w-[800px]">
+            <div className="space-y-6">
+              {principles.map((item) => (
+                <div
+                  key={item.step}
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pb-6 border-b border-border/40 last:border-0 last:pb-0 items-baseline"
+                >
+                  <span className="sm:col-span-1 text-xs font-mono text-muted-foreground/80">
+                    {item.step}
+                  </span>
+                  <div className="sm:col-span-11 space-y-1">
+                    <h3 className="font-display text-base sm:text-lg font-semibold text-foreground tracking-tight">
+                      {item.title}
                     </h3>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      {p.detail}
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                      {item.description}
                     </p>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

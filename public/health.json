@@ -1,0 +1,12 @@
+{
+  "status": "healthy",
+  "service": "karthik-naramala-portfolio",
+  "timestamp": "2026-10-07T23:12:00Z",
+  "environment": "production",
+  "version": "1.0.0",
+  "checks": {
+    "routing": "ok",
+    "static_assets": "ok",
+    "resume_access": "ok"
+  }
+}
