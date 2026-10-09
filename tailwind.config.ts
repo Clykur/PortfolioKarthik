@@ -53,8 +53,12 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        display: ["Space Grotesk", "Inter", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        display: ["Playfair Display", "Georgia", "Times New Roman", "serif"],
+        headline: ["Playfair Display", "Georgia", "Times New Roman", "serif"],
+        masthead: ["Playfair Display", "Georgia", "Times New Roman", "serif"],
+        serif: ["Newsreader", "Georgia", "Times New Roman", "serif"],
+        body: ["Newsreader", "Georgia", "Times New Roman", "serif"],
+        mono: ["JetBrains Mono", "SF Mono", "Menlo", "Consolas", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

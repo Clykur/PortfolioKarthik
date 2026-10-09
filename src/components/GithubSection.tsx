@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, Github, Star } from "lucide-react";
 
 interface GitHubRepo {
   name: string;
@@ -129,76 +129,77 @@ export const GithubSection = () => {
   }, []);
 
   return (
-    <section id="github" className="py-16 lg:py-24 border-t border-border/60">
-      <div className="portfolio-wrap">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
-          {/* Label (3 cols) */}
-          <div className="lg:col-span-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
-              GitHub
-            </span>
-          </div>
+    <section className="section" id="github">
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+        <h2 className="section-lead-title m-0">OPEN SOURCE SYSTEMS &amp; PUBLIC REPOSITORIES</h2>
+        <a
+          href="https://github.com/karthiknaramala9949"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="external-link font-mono text-xs inline-flex items-center gap-1"
+        >
+          <Github className="w-3.5 h-3.5" />
+          <span>github.com/karthiknaramala9949</span>
+          <ArrowUpRight className="w-3 h-3" />
+        </a>
+      </div>
 
-          {/* Activity / Repos (9 cols) */}
-          <div className="lg:col-span-9 space-y-6 max-w-[800px]">
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-2">
-              <p className="text-sm text-foreground/85">
-                Building, experimenting, and shipping in public.
-              </p>
-              <a
-                href="https://github.com/karthiknaramala9949"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
+      <p className="font-body text-[var(--ink-secondary)] text-[0.95rem] mt-2 mb-4">
+        Building, experimenting, and shipping in public. Public source code and experimental architectures.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {loading
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="p-4 bg-[var(--paper-card)] border border-[var(--rule-hairline)] animate-pulse space-y-2 h-28"
               >
-                <Github className="w-3.5 h-3.5" />
-                <span>karthiknaramala9949</span>
-                <ArrowUpRight className="w-3 h-3 text-muted-foreground" />
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-1">
-              {loading
-                ? Array.from({ length: 4 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="p-4 rounded border border-border/50 animate-pulse space-y-2 h-24"
+                <div className="h-4 bg-[var(--paper-subtle)] w-1/2" />
+                <div className="h-3 bg-[var(--paper-subtle)] w-4/5" />
+              </div>
+            ))
+          : repos.map((repo) => (
+              <div
+                key={repo.name}
+                className="selected-work-item"
+              >
+                <div className="selected-work-header">
+                  <h4 className="selected-work-title">
+                    <a
+                      href={repo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="work-link"
                     >
-                      <div className="h-3.5 bg-muted rounded w-1/2" />
-                      <div className="h-2.5 bg-muted rounded w-4/5" />
-                    </div>
-                  ))
-                : repos.map((repo) => (
-                    <div
-                      key={repo.name}
-                      className="p-4 rounded-md border border-border/70 hover:border-foreground/30 transition-colors space-y-2.5 flex flex-col justify-between"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <a
-                            href={repo.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs font-semibold font-mono text-foreground hover:text-primary transition-colors truncate"
-                          >
-                            {repo.name}
-                          </a>
-                          <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                        </div>
-                        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-                          {repo.description}
-                        </p>
-                      </div>
+                      {repo.name}
+                    </a>
+                  </h4>
+                  <span className="selected-work-tag">{repo.language}</span>
+                </div>
 
-                      <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground pt-2 border-t border-border/40">
-                        <span>{repo.language}</span>
-                        {repo.stars > 0 && <span>★ {repo.stars}</span>}
-                      </div>
-                    </div>
-                  ))}
-            </div>
-          </div>
-        </div>
+                <p>{repo.description}</p>
+
+                <div className="flex items-center justify-between pt-2 border-t border-[var(--rule-hairline)] text-xs font-mono text-[var(--ink-muted)]">
+                  <a
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="external-link inline-flex items-center gap-1"
+                  >
+                    <span>View Repository</span>
+                    <ArrowUpRight className="w-3 h-3" />
+                  </a>
+
+                  {repo.stars > 0 && (
+                    <span className="inline-flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-current" />
+                      <span>{repo.stars}</span>
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
       </div>
     </section>
   );

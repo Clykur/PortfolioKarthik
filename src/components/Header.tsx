@@ -1,40 +1,109 @@
 import { useState, useEffect } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { ArrowUpRight, Menu, X, FileText } from "lucide-react";
+import { FileText, ArrowUpRight } from "lucide-react";
 
-const navItems = [
-  { label: "Work", href: "#work" },
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: "Home", href: "#hero" },
+  { label: "Projects", href: "#work" },
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
+  { label: "Building", href: "#building" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [stickyVisible, setStickyVisible] = useState(false);
+  const [dateTimeString, setDateTimeString] = useState("");
 
+  // Live ticking date and time in authentic newspaper format
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        const dateOptions: Intl.DateTimeFormatOptions = {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        };
+        const dateStr = now.toLocaleDateString("en-US", dateOptions);
+        const timeOptions: Intl.DateTimeFormatOptions = {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        };
+        const timeStr = now.toLocaleTimeString("en-US", timeOptions);
+        setDateTimeString(`${dateStr} | ${timeStr}`);
+      } else {
+        const dateOptions: Intl.DateTimeFormatOptions = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const dateStr = now.toLocaleDateString("en-US", dateOptions);
+        const timeOptions: Intl.DateTimeFormatOptions = {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        };
+        const timeStr = now.toLocaleTimeString("en-US", timeOptions);
+        setDateTimeString(`${dateStr} | ${timeStr}`);
+      }
+    };
+
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Scroll listener for sticky mobile header and active section highlight
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const isMobile = window.innerWidth <= 768;
 
-      const sections = ["work", "about", "experience", "building", "skills", "github", "principles", "contact"];
-      const scrollPos = window.scrollY + 160;
+      if (isMobile) {
+        if (scrollY > 75) {
+          setStickyVisible(true);
+        } else if (scrollY < 35) {
+          setStickyVisible(false);
+          setMobileMenuOpen(false);
+        }
+      } else {
+        setStickyVisible(false);
+      }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
+      // Detect active section
+      const sections = ["contact", "principles", "github", "skills", "building", "experience", "about", "work", "hero"];
+      const scrollPos = window.scrollY + 180;
+
+      for (const id of sections) {
+        const el = document.getElementById(id);
         if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
+          setActiveSection(id);
           return;
         }
       }
-      setActiveSection("");
+      setActiveSection("hero");
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -56,107 +125,90 @@ export const Header = () => {
         Skip to content
       </a>
 
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
-          isScrolled
-            ? "nav-blur border-b border-border/70 py-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]"
-            : "bg-background/60 backdrop-blur-sm py-4 sm:py-5 border-b border-transparent"
-        }`}
+      {/* Sticky Mobile Bar: Slide-in with zero jitter */}
+      <div
+        className={`sticky-mobile-bar ${stickyVisible ? "visible" : ""}`}
+        aria-hidden={!stickyVisible}
       >
-        <div className="portfolio-wrap flex items-center justify-between">
-          {/* Identity */}
+        <div className="sticky-mobile-inner">
+          <span className="sticky-mobile-title">Karthik Naramala</span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              id="stickyNavToggle"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`sticky-nav-toggle ${mobileMenuOpen ? "open" : ""}`}
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              <span className="hamburger-icon" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+        </div>
+        <nav
+          className={`sticky-mobile-nav ${mobileMenuOpen ? "open" : ""}`}
+          id="stickyMobileNav"
+        >
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href.replace("#", "");
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => scrollTo(e, item.href)}
+                className={`nav-link ${isActive ? "active" : ""}`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
           <a
-            href="#hero"
-            onClick={(e) => scrollTo(e, "#hero")}
-            className="group flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
+            href="/resume.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link flex items-center justify-center gap-1 font-semibold"
           >
-            <span className="w-2 h-2 rounded-full bg-primary transition-transform duration-200 group-hover:scale-125" />
-            <span className="font-display">Karthik Naramala</span>
+            <FileText className="w-3.5 h-3.5" />
+            <span>Resume</span>
+            <ArrowUpRight className="w-3 h-3" />
           </a>
+        </nav>
+      </div>
 
-          {/* Desktop Navigation */}
-          <nav
-            aria-label="Primary"
-            className="hidden md:flex items-center gap-7 text-xs font-medium text-muted-foreground"
-          >
+      {/* Desktop & Tablet In-Flow Masthead / Nameplate */}
+      <header className="masthead" role="banner">
+        <div className="masthead-content">
+          <div className="masthead-brand-row">
+            <h1 className="newspaper-title">Karthik Naramala</h1>
+          </div>
+
+          <div className="masthead-meta">
+            <span className="masthead-meta-col-left">VOL. 01 — BANGALORE, IN</span>
+            <span className="date-time">{dateTimeString || "October 2026"}</span>
+            <span className="tagline">ENGINEER &amp; PRODUCT BUILDER</span>
+          </div>
+
+          <nav className="newspaper-nav" aria-label="Newspaper navigation">
             {navItems.map((item) => {
-              const isActive = activeSection === item.href.substring(1);
+              const isActive = activeSection === item.href.replace("#", "");
               return (
                 <a
                   key={item.label}
                   href={item.href}
                   onClick={(e) => scrollTo(e, item.href)}
-                  className={`transition-colors py-1 ${
-                    isActive
-                      ? "text-foreground font-semibold"
-                      : "hover:text-foreground"
-                  }`}
-                  aria-current={isActive ? "true" : undefined}
+                  className={`nav-link ${isActive ? "active" : ""}`}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   {item.label}
                 </a>
               );
             })}
           </nav>
-
-          {/* Right actions: Resume link, ThemeToggle, Mobile toggle */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <a
-              href="/resume.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-medium text-foreground hover:text-primary transition-colors border border-border hover:border-primary/40 subtle-ring"
-              title="Open print-ready resume"
-            >
-              <FileText className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Resume</span>
-              <ArrowUpRight className="w-3 h-3 text-muted-foreground hidden sm:inline" />
-            </a>
-
-            <ThemeToggle />
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-1.5 rounded-md text-muted-foreground hover:text-foreground subtle-ring"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open navigation menu"}
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </button>
-          </div>
         </div>
-
-        {/* Mobile dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-b border-border bg-background/95 backdrop-blur-md px-6 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-150">
-            <nav className="flex flex-col space-y-2 text-sm font-medium">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => scrollTo(e, item.href)}
-                  className="py-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="pt-2 border-t border-border/60 flex items-center justify-between">
-                <a
-                  href="/resume.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-primary font-medium"
-                >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>View Resume</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
     </>
   );

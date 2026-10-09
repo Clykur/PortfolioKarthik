@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { ArrowUpRight, Check, Copy, FileText, Mail, Send } from "lucide-react";
 import { useNetworkStatus } from "@/hooks/useNetworkStatus";
 
@@ -18,11 +17,17 @@ export const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("karthik.naramala@clykur.com");
     setCopied(true);
-    toast.success("Email copied to clipboard");
+    showToast("Email address copied to clipboard · karthik.naramala@clykur.com");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -30,19 +35,19 @@ export const Contact = () => {
     e.preventDefault();
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      toast.error("Please fill in all fields.");
+      showToast("Please fill in all inquiry fields.");
       return;
     }
 
     if (!isOnline) {
-      toast.error("You are currently offline. Please email directly.");
+      showToast("Offline status detected. Opening email client directly.");
+      window.location.href = `mailto:karthik.naramala@clykur.com?subject=Project Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      // Connect to production form webhook with graceful fallback
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -62,17 +67,16 @@ export const Contact = () => {
       const result = await response.json().catch(() => null);
 
       if (response.ok && result?.success) {
-        toast.success("Message dispatched successfully. I will follow up promptly.");
+        showToast("Inquiry dispatched successfully. I will follow up promptly.");
         setFormData({ name: "", email: "", message: "" });
       } else {
-        // Fallback: trigger user's native email client
         const mailtoUrl = `mailto:karthik.naramala@clykur.com?subject=${encodeURIComponent(
           `Project inquiry from ${formData.name}`
         )}&body=${encodeURIComponent(
           `Hi Karthik,\n\n${formData.message}\n\nFrom: ${formData.name} (${formData.email})`
         )}`;
         window.location.href = mailtoUrl;
-        toast.success("Opening email client to deliver message.");
+        showToast("Opening default email client for dispatch.");
         setFormData({ name: "", email: "", message: "" });
       }
     } catch {
@@ -82,189 +86,199 @@ export const Contact = () => {
         `Hi Karthik,\n\n${formData.message}\n\nFrom: ${formData.name} (${formData.email})`
       )}`;
       window.location.href = mailtoUrl;
-      toast.success("Opening email client to deliver message.");
+      showToast("Opening default email client for dispatch.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-32 border-t border-border/60">
-      <div className="portfolio-wrap">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left Column: Direct channels and Resume (5 cols) */}
-          <div className="lg:col-span-5 space-y-7">
-            <div className="space-y-3">
-              <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
-                Contact
-              </span>
-              <h2 className="font-display text-[clamp(1.85rem,3vw,2.5rem)] font-bold tracking-tight text-foreground leading-tight">
-                Have a project in mind?
-              </h2>
-              <p className="text-base sm:text-lg text-foreground/80 font-normal">
-                Let&rsquo;s build something useful.
-              </p>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-1">
-                Whether you need technical product architecture, product engineering leadership, or end-to-end delivery for a web or mobile platform, I&rsquo;m always open to discussing new initiatives.
-              </p>
-            </div>
+    <section className="section" id="contact">
+      <h2 className="section-lead-title">DISPATCH, CLASSIFIEDS &amp; CONTACT</h2>
 
-            {/* Email with copy button */}
-            <div className="pt-1 space-y-2">
-              <span className="text-xs font-mono text-muted-foreground block">Email</span>
-              <div className="flex items-center gap-2">
-                <a
-                  href="mailto:karthik.naramala@clykur.com"
-                  className="text-base font-semibold text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
-                >
-                  karthik.naramala@clykur.com
-                </a>
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors subtle-ring"
-                  title="Copy email address"
-                  aria-label="Copy email address"
-                >
-                  {copied ? (
-                    <Check className="w-3.5 h-3.5 text-primary" />
-                  ) : (
-                    <Copy className="w-3.5 h-3.5" />
-                  )}
-                </button>
-              </div>
-            </div>
+      {/* Floating editorial mail toast */}
+      {toastMessage && (
+        <div className="mail-toast show" role="status">
+          <span>{toastMessage}</span>
+        </div>
+      )}
 
-            {/* Channels */}
-            <div className="space-y-2">
-              <span className="text-xs font-mono text-muted-foreground block">Network</span>
-              <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-muted-foreground">
-                <a
-                  href="https://github.com/karthiknaramala9949"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
-                >
-                  <span>GitHub</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground" />
-                </a>
-                <span>·</span>
-                <a
-                  href="https://www.linkedin.com/in/venkata-karthik-naramala-a35a7a224/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
-                >
-                  <span>LinkedIn</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground" />
-                </a>
-                <span>·</span>
-                <a
-                  href="https://x.com/karthik_naramala"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
-                >
-                  <span>X</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground" />
-                </a>
-              </div>
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Direct Inquiries & Resume (5 cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="space-y-2">
+            <h3 className="font-headline text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
+              Have a project in mind?
+            </h3>
+            <p className="font-headline text-base text-[var(--ink-primary)] italic">
+              Let&rsquo;s build something useful.
+            </p>
+            <p className="font-body text-[var(--ink-secondary)] text-[0.95rem] leading-relaxed pt-1">
+              Whether you need technical product architecture, product engineering leadership, or end-to-end delivery for a web or mobile platform, I&rsquo;m always open to discussing new initiatives.
+            </p>
+          </div>
 
-            {/* Resume Access Buttons */}
-            <div className="pt-2 border-t border-border/40 space-y-2">
-              <span className="text-xs font-mono text-muted-foreground block">Curriculum Vitae</span>
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="/resume.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-medium text-foreground border border-border hover:border-foreground/30 hover:bg-secondary/40 transition-colors subtle-ring"
-                >
-                  <FileText className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span>View Resume</span>
-                  <ArrowUpRight className="w-3 h-3 text-muted-foreground" />
-                </a>
-                <a
-                  href="/resume.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span>Download Resume</span>
-                </a>
-              </div>
+          {/* Email Channel with Instant Copy */}
+          <div className="p-4 bg-[var(--paper-card)] border border-[var(--rule-heavy)] shadow-[2px_2px_0_var(--rule-heavy)] space-y-2">
+            <span className="font-mono text-xs uppercase tracking-wider text-[var(--ink-muted)] block">
+              Direct Inquiries
+            </span>
+            <div className="flex items-center justify-between gap-2">
+              <a
+                href="mailto:karthik.naramala@clykur.com"
+                className="font-mono text-sm font-semibold text-[var(--ink-primary)] hover:underline truncate"
+              >
+                karthik.naramala@clykur.com
+              </a>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="read-more-btn px-2 h-7"
+                title="Copy email address"
+                aria-label="Copy email address"
+              >
+                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
             </div>
           </div>
 
-          {/* Right Column: Clean 3-field form (7 cols) */}
-          <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} noValidate className="space-y-4 max-w-xl">
-              <div className="space-y-1">
-                <label htmlFor="name" className="text-xs font-mono text-muted-foreground block">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded text-xs bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/40 font-mono"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label htmlFor="email" className="text-xs font-mono text-muted-foreground block">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  placeholder="you@company.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded text-xs bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/40 font-mono"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label htmlFor="message" className="text-xs font-mono text-muted-foreground block">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={5}
-                  placeholder="Describe your project, timeline, or engineering goals..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded text-xs bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/40 resize-none font-mono"
-                />
-              </div>
-
-              <div className="pt-2 flex items-center justify-between">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-medium bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 transition-colors subtle-ring"
-                >
-                  <Send className="w-3.5 h-3.5 text-background/80" />
-                  <span>{isSubmitting ? "Dispatching..." : "Send Message"}</span>
-                </button>
-
-                <a
-                  href="mailto:karthik.naramala@clykur.com"
-                  className="text-xs font-mono text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
-                >
-                  <Mail className="w-3 h-3 text-primary" />
-                  <span>Prefer direct email?</span>
-                </a>
-              </div>
-            </form>
+          {/* Channels & Network */}
+          <div className="space-y-2">
+            <span className="font-mono text-xs uppercase tracking-wider text-[var(--ink-muted)] block">
+              Public Channels
+            </span>
+            <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+              <a
+                href="https://github.com/karthiknaramala9949"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="external-link inline-flex items-center gap-1"
+              >
+                <span>GitHub</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <span className="text-[var(--rule-medium)]">·</span>
+              <a
+                href="https://www.linkedin.com/in/venkata-karthik-naramala-a35a7a224/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="external-link inline-flex items-center gap-1"
+              >
+                <span>LinkedIn</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <span className="text-[var(--rule-medium)]">·</span>
+              <a
+                href="https://x.com/karthik_naramala"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="external-link inline-flex items-center gap-1"
+              >
+                <span>X / Twitter</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
           </div>
+
+          {/* Curriculum Vitae */}
+          <div className="space-y-2 pt-2">
+            <span className="font-mono text-xs uppercase tracking-wider text-[var(--ink-muted)] block">
+              Curriculum Vitae
+            </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="/resume.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="read-more-btn"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>View Resume</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <a
+                href="/resume.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="proposal-cta"
+              >
+                <span>Download Resume</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Editorial Inquiry Form (7 cols) */}
+        <div className="lg:col-span-7 bg-[var(--paper-card)] border border-[var(--rule-heavy)] p-6 shadow-[3px_3px_0_var(--rule-heavy)]">
+          <h3 className="font-headline text-lg font-bold text-[var(--ink-primary)] mb-4 pb-2 border-b border-[var(--rule-hairline)] uppercase tracking-wide">
+            Dispatch Communication
+          </h3>
+
+          <form onSubmit={handleSubmit} noValidate className="space-y-4">
+            <div className="space-y-1">
+              <label htmlFor="name" className="font-mono text-xs uppercase text-[var(--ink-muted)] block">
+                Sender Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                required
+                placeholder="Full Name / Organization"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-3 py-2 text-xs font-mono bg-[var(--paper-bg)] border border-[var(--rule-heavy)] text-[var(--ink-primary)] placeholder:text-[var(--ink-light)] focus:outline-none focus:ring-1 focus:ring-[var(--ink-primary)]"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label htmlFor="email" className="font-mono text-xs uppercase text-[var(--ink-muted)] block">
+                Return Dispatch Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                placeholder="contact@company.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-3 py-2 text-xs font-mono bg-[var(--paper-bg)] border border-[var(--rule-heavy)] text-[var(--ink-primary)] placeholder:text-[var(--ink-light)] focus:outline-none focus:ring-1 focus:ring-[var(--ink-primary)]"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label htmlFor="message" className="font-mono text-xs uppercase text-[var(--ink-muted)] block">
+                Project Scope / Technical Goals
+              </label>
+              <textarea
+                id="message"
+                required
+                rows={5}
+                placeholder="Outline your application requirements, timeline, or engineering initiatives..."
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-3 py-2 text-xs font-mono bg-[var(--paper-bg)] border border-[var(--rule-heavy)] text-[var(--ink-primary)] placeholder:text-[var(--ink-light)] focus:outline-none focus:ring-1 focus:ring-[var(--ink-primary)] resize-none"
+              />
+            </div>
+
+            <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="read-more-btn"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>{isSubmitting ? "Dispatching..." : "Send Dispatch"}</span>
+              </button>
+
+              <a
+                href="mailto:karthik.naramala@clykur.com"
+                className="font-mono text-xs text-[var(--ink-muted)] hover:text-[var(--ink-primary)] inline-flex items-center gap-1"
+              >
+                <Mail className="w-3 h-3" />
+                <span>Prefer native mail client?</span>
+              </a>
+            </div>
+          </form>
         </div>
       </div>
     </section>

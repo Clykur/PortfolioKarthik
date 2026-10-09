@@ -41,80 +41,54 @@ const experiences: ExperienceItem[] = [
 
 export const Experience = () => {
   return (
-    <section id="experience" className="py-24 lg:py-32 border-t border-border/60">
-      <div className="portfolio-wrap">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
-          {/* Section Header (3 cols) */}
-          <div className="lg:col-span-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
-              Experience
-            </span>
-          </div>
+    <section className="section" id="experience">
+      <h2 className="section-lead-title">COMMERCIAL &amp; FOUNDING EXPERIENCE</h2>
 
-          {/* Editorial Timeline (9 cols) */}
-          <div className="lg:col-span-9 space-y-12 max-w-[800px]">
-            {experiences.map((exp) => (
-              <div
-                key={exp.company}
-                className="space-y-4 pb-10 border-b border-border/40 last:border-0 last:pb-0"
-              >
-                {/* Header row: Dates, Role, Company */}
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <div>
-                    <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-foreground">
-                      {exp.role}
-                    </h3>
-                    <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mt-0.5">
-                      <span className="text-foreground font-semibold">{exp.company}</span>
-                      <span>·</span>
-                      <span>{exp.location}</span>
-                    </div>
-                  </div>
-                  <span className="text-xs font-mono text-muted-foreground shrink-0 mt-1 sm:mt-0">
-                    {exp.period}
-                  </span>
-                </div>
-
-                {/* Summary */}
-                <p className="text-sm text-foreground/85 leading-relaxed">
-                  {exp.summary}
-                </p>
-
-                {/* 2-4 Meaningful achievements */}
-                <ul className="space-y-1.5 text-xs sm:text-sm text-muted-foreground list-disc list-inside marker:text-primary/70">
-                  {exp.achievements.map((item, i) => (
-                    <li key={i} className="leading-relaxed">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tech list */}
-                <p className="text-xs font-mono text-muted-foreground/80 pt-1">
-                  {exp.tech.join(" · ")}
-                </p>
-              </div>
-            ))}
-
-            {/* Education Note */}
-            <div className="pt-8 border-t border-border/40 space-y-2">
-              <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
-                Education
-              </span>
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs">
-                <div>
-                  <span className="font-semibold text-foreground text-sm sm:text-base">
-                    B.Tech in Computer Science &amp; Engineering
-                  </span>
-                  <p className="text-muted-foreground mt-1 text-xs sm:text-sm">
-                    Focus on distributed systems, relational database engines, algorithms, and networked software.
-                  </p>
-                </div>
-                <span className="font-mono text-muted-foreground shrink-0 mt-1 sm:mt-0">
-                  2022 — 2026
+      <div className="business-stream">
+        <div className="business-section">
+          {experiences.map((exp) => (
+            <article className="business-item" key={exp.company} id={exp.company.toLowerCase()}>
+              <div className="business-item-header">
+                <h3 className="business-headline">
+                  {exp.role} — {exp.company}
+                </h3>
+                <span className="business-meta">
+                  {exp.period} · {exp.location} | Full-cycle Production Delivery
                 </span>
               </div>
-            </div>
+
+              <p className="business-content">
+                {exp.summary}
+              </p>
+
+              <ul className="business-bullet-list">
+                {exp.achievements.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+
+              <div className="pt-2">
+                <span className="font-mono text-[0.72rem] text-[var(--ink-muted)]">
+                  Stack: {exp.tech.join(" · ")}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Education Section */}
+        <div className="business-section">
+          <h3 className="subsection-title">Education</h3>
+          <div className="business-education-card">
+            <h4 className="business-headline">
+              Bachelor of Technology in Computer Science &amp; Engineering
+            </h4>
+            <span className="education-meta">
+              2022 — 2026 | Undergraduate Degree
+            </span>
+            <p className="business-content">
+              Focus on distributed systems, relational database engines, algorithms, and networked software.
+            </p>
           </div>
         </div>
       </div>

@@ -39,40 +39,28 @@ const principles: Principle[] = [
 
 export const Principles = () => {
   return (
-    <section id="principles" className="py-20 lg:py-28 border-t border-border/60">
-      <div className="portfolio-wrap">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
-          {/* Label (3 cols) */}
-          <div className="lg:col-span-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
-              How I Build
-            </span>
-          </div>
+    <section className="section" id="principles">
+      <h2 className="section-lead-title">HOW I BUILD · EDITORIAL PRINCIPLES</h2>
 
-          {/* Typographic Philosophy (9 cols) */}
-          <div className="lg:col-span-9 space-y-8 max-w-[800px]">
-            <div className="space-y-6">
-              {principles.map((item) => (
-                <div
-                  key={item.step}
-                  className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pb-6 border-b border-border/40 last:border-0 last:pb-0 items-baseline"
-                >
-                  <span className="sm:col-span-1 text-xs font-mono text-muted-foreground/80">
-                    {item.step}
-                  </span>
-                  <div className="sm:col-span-11 space-y-1">
-                    <h3 className="font-display text-base sm:text-lg font-semibold text-foreground tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+      <div className="space-y-4">
+        {principles.map((item) => (
+          <article
+            key={item.step}
+            className="pb-4 border-b border-[var(--rule-hairline)] last:border-b-0 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 items-baseline"
+          >
+            <span className="md:col-span-1 font-mono text-sm font-bold text-[var(--ink-muted)]">
+              {item.step}
+            </span>
+            <div className="md:col-span-11 space-y-1">
+              <h3 className="font-headline text-base sm:text-lg font-bold text-[var(--ink-primary)]">
+                {item.title}
+              </h3>
+              <p className="font-body text-[var(--ink-secondary)] text-[0.95rem] leading-relaxed">
+                {item.description}
+              </p>
             </div>
-          </div>
-        </div>
+          </article>
+        ))}
       </div>
     </section>
   );

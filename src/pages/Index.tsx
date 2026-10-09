@@ -63,7 +63,7 @@ const jsonLdData = {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/15 selection:text-primary">
+    <div className="min-h-screen bg-[var(--desk-bg)] text-[var(--ink-primary)] antialiased">
       <Helmet>
         <title>Karthik Naramala — Software Developer &amp; Product Builder</title>
         <meta
@@ -89,7 +89,7 @@ const Index = () => {
       </Helmet>
 
       <Header />
-      <main id="main-content" tabIndex={-1} className="outline-none">
+      <main id="main-content" tabIndex={-1} className="outline-none newspaper-container">
         <Hero />
         <Projects />
         <About />

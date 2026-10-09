@@ -1,133 +1,233 @@
-import { useState } from "react";
 import heroImage from "@/assets/karthik-professional.png";
 import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 
 export const Hero = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   const scrollTo = (href: string) => {
     const el = document.getElementById(href.replace("#", ""));
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section
-      id="hero"
-      className="relative h-screen min-h-[640px] flex flex-col justify-between pt-24 pb-8 sm:pt-28 sm:pb-10 overflow-hidden"
-    >
-      {/* Spacer to balance fixed navigation */}
-      <div className="w-full h-1" aria-hidden="true" />
+    <section className="section front-page" id="hero">
+      <div className="article centerpiece">
+        {/* Headline & Hierarchy */}
+        <h2 className="article-headline">
+          Building Thoughtful Digital Products &amp; Production-Ready Web Applications
+        </h2>
 
-      {/* Main Hero Content - exactly aligned to portfolio-wrap page margins */}
-      <div className="portfolio-wrap my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center w-full">
-          {/* Main Editorial Copy (7-8 columns on desktop across the 90% width) */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-6 sm:space-y-7">
+        {/* Editorial Byline & Dateline */}
+        <div className="article-meta">
+          <span className="byline">By Karthik Naramala</span>
+          <span className="dateline">Bangalore, India · Available Worldwide</span>
+          <span className="byline text-xs font-mono font-normal">Co-Founder @ Clykur</span>
+        </div>
 
-            {/* Identity & Role */}
-            <div className="space-y-2">
-              <h1 className="font-display text-[clamp(2.75rem,5.5vw,5rem)] font-bold tracking-tight text-foreground leading-[1.04]">
-                Karthik Naramala
-              </h1>
-              <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-normal tracking-tight">
-                Software Developer &amp; Product Builder
-              </p>
-            </div>
-
-            {/* Core Description - Expansive yet readable */}
-            <p className="text-base sm:text-lg lg:text-[19px] text-foreground/85 leading-relaxed max-w-[700px] font-normal">
-              I build thoughtful digital products, from interfaces to production-ready web applications. Co-founder at{" "}
-              <a
-                href="https://www.clykur.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="editorial-link font-medium text-foreground inline-flex items-center gap-0.5"
-              >
-                Clykur
-                <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground" />
-              </a>
-              , engineering scalable architectures with TypeScript, React Native, and Supabase.
-            </p>
-
-            {/* Primary Actions */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-1">
-              <button
-                type="button"
-                onClick={() => scrollTo("#work")}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors subtle-ring"
-              >
-                <span>View Work</span>
-                <ArrowDown className="w-3.5 h-3.5 text-background/70" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => scrollTo("#contact")}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-medium text-foreground border border-border hover:border-foreground/40 hover:bg-secondary/40 transition-colors subtle-ring"
-              >
-                <span>Contact</span>
-              </button>
-            </div>
-
-            {/* Secondary Direct Channels */}
-            <div className="pt-2 flex flex-wrap items-center gap-5 sm:gap-6 text-xs text-muted-foreground font-mono">
-              <a
-                href="https://github.com/karthiknaramala9949"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
-                title="GitHub Profile"
-              >
-                <Github className="w-3.5 h-3.5" />
-                <span>GitHub</span>
-              </a>
-              <span className="text-border">·</span>
-              <a
-                href="https://www.linkedin.com/in/venkata-karthik-naramala-a35a7a224/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
-                title="LinkedIn Profile"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-                <span>LinkedIn</span>
-              </a>
-              <span className="text-border">·</span>
-              <a
-                href="https://x.com/karthik_naramala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
-                title="X / Twitter"
-              >
-                <span>X</span>
-              </a>
-              <span className="text-border">·</span>
-              <a
-                href="mailto:karthik.naramala@clykur.com"
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
-                title="Email direct"
-              >
-                <Mail className="w-3.5 h-3.5 text-primary" />
-                <span>karthik.naramala@clykur.com</span>
-              </a>
-            </div>
+        {/* Content Body with Classical Floated Portrait & Drop-Cap */}
+        <div className="article-content">
+          <div className="profile-photo-container">
+            <img
+              src={heroImage}
+              alt="Karthik Naramala"
+              className="profile-photo"
+              width={180}
+              height={222}
+              loading="eager"
+            />
+            <p className="photo-caption">Karthik Naramala</p>
           </div>
 
-          {/* Right Column: Professional Portrait (4-5 columns across 90% width) */}
-          <div className="lg:col-span-5 xl:col-span-4 flex justify-start lg:justify-end items-center">
-            <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[400px] aspect-[3/3.7] rounded-xl overflow-hidden bg-secondary/40 border border-border/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
-              <img
-                src={heroImage}
-                alt="Karthik Naramala — Software Developer & Product Builder"
-                width={400}
-                height={493}
-                loading="eager"
-                decoding="async"
-                onLoad={() => setImageLoaded(true)}
-                className={`w-full h-full object-cover object-top filter grayscale contrast-[1.05] transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"
-                  }`}
-              />
+          <p className="drop-cap">
+            I build thoughtful digital products, from interfaces to production-ready web applications. Co-founder at{" "}
+            <a
+              href="https://www.clykur.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="external-link font-medium"
+            >
+              Clykur
+            </a>
+            , engineering scalable architectures with TypeScript, React Native, and Supabase.
+          </p>
+
+          <p>
+            Rather than assembling disparate dependencies or chasing hype, my focus is on robust schema modeling,
+            predictable application state, and shipping software that solves real operational bottlenecks. I care
+            about the details that make products simple to understand, fast to use, and reliable in production.
+          </p>
+
+          <p>
+            Operating across the entire product lifecycle—from user workflow architecture to high-concurrency database
+            design and responsive interfaces—I build scalable web and mobile software. From architecting the
+            multi-tenant slot booking infrastructure for{" "}
+            <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("#work"); }} className="external-link">
+              CusOwn
+            </a>{" "}
+            to building early-stage founder financial systems with{" "}
+            <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("#work"); }} className="external-link">
+              LedgerOS
+            </a>
+            , I prioritize clean architectural boundaries and dependable uptime.
+          </p>
+
+          {/* Action Callouts */}
+          <div className="flex flex-wrap items-center gap-3 pt-3 pb-2">
+            <button
+              type="button"
+              onClick={() => scrollTo("#work")}
+              className="read-more-btn"
+            >
+              <span>View Work</span>
+              <ArrowDown className="w-3.5 h-3.5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => scrollTo("#contact")}
+              className="proposal-cta"
+            >
+              <span>Contact &amp; Dispatch</span>
+            </button>
+
+            <a
+              href="/resume.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="read-more-btn"
+            >
+              <span>View Resume</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Secondary Direct Channels */}
+          <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-[var(--ink-muted)]">
+            <a
+              href="https://github.com/karthiknaramala9949"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-link"
+              title="GitHub Profile"
+              aria-label="GitHub"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/venkata-karthik-naramala-a35a7a224/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-link"
+              title="LinkedIn Profile"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a
+              href="https://x.com/karthik_naramala"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-link"
+              title="X / Twitter Profile"
+              aria-label="X"
+            >
+              <span className="font-bold text-xs">𝕏</span>
+            </a>
+            <a
+              href="mailto:karthik.naramala@clykur.com"
+              className="inline-flex items-center gap-1.5 external-link font-medium"
+              title="Email direct"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>karthik.naramala@clykur.com</span>
+            </a>
+          </div>
+
+          {/* Selected Work Preview Grid */}
+          <div className="selected-work-container">
+            <h3 className="subsection-title">Selected Engineering Work</h3>
+            <div className="selected-work-grid">
+              <article className="selected-work-item">
+                <div className="selected-work-header">
+                  <h4 className="selected-work-title">
+                    <a
+                      href="#work"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollTo("#work");
+                      }}
+                      className="work-link"
+                    >
+                      CusOwn
+                    </a>
+                  </h4>
+                  <span className="selected-work-tag">Slot Booking Platform</span>
+                </div>
+                <p>
+                  Production multi-tenant slot booking &amp; scheduling infrastructure with realtime availability synchronization and concurrency control.
+                </p>
+              </article>
+
+              <article className="selected-work-item">
+                <div className="selected-work-header">
+                  <h4 className="selected-work-title">
+                    <a
+                      href="#work"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollTo("#work");
+                      }}
+                      className="work-link"
+                    >
+                      LedgerOS
+                    </a>
+                  </h4>
+                  <span className="selected-work-tag">AI Financial Systems</span>
+                </div>
+                <p>
+                  AI-powered financial operating system replacing fragmented spreadsheets with predictive burn-rate telemetry and interactive simulators.
+                </p>
+              </article>
+
+              <article className="selected-work-item">
+                <div className="selected-work-header">
+                  <h4 className="selected-work-title">
+                    <a
+                      href="#work"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollTo("#work");
+                      }}
+                      className="work-link"
+                    >
+                      Clykur Studio Platform
+                    </a>
+                  </h4>
+                  <span className="selected-work-tag">Studio Platform</span>
+                </div>
+                <p>
+                  Official company platform and client portal for Clykur, engineered for edge performance and structured project intake.
+                </p>
+              </article>
+
+              <article className="selected-work-item">
+                <div className="selected-work-header">
+                  <h4 className="selected-work-title">
+                    <a
+                      href="#work"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollTo("#work");
+                      }}
+                      className="work-link"
+                    >
+                      Drapeva
+                    </a>
+                  </h4>
+                  <span className="selected-work-tag">E-Commerce Platform</span>
+                </div>
+                <p>
+                  Direct-to-consumer premium Indian saree and ethnic wear storefront showcasing handloom weaves with Razorpay checkout.
+                </p>
+              </article>
             </div>
           </div>
         </div>
