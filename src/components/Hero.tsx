@@ -1,7 +1,10 @@
 import heroImage from "@/assets/karthik-professional.png";
 import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { getAbapExperience } from "@/lib/experience";
 
 export const Hero = () => {
+  const abapExp = getAbapExperience();
+
   const scrollTo = (href: string) => {
     const el = document.getElementById(href.replace("#", ""));
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -19,7 +22,9 @@ export const Hero = () => {
         <div className="article-meta">
           <span className="byline">By Karthik Naramala</span>
           <span className="dateline">Bangalore, India · Available Worldwide</span>
-          <span className="byline text-xs font-mono font-normal">Co-Founder @ Clykur</span>
+          <span className="byline text-xs font-mono font-normal">
+            Co-Founder @ Clykur · Software Engineer @ Wipro (SAP ABAP / HANA · {abapExp.formattedYears})
+          </span>
         </div>
 
         {/* Content Body with Classical Floated Portrait & Drop-Cap */}
@@ -37,7 +42,8 @@ export const Hero = () => {
           </div>
 
           <p className="drop-cap">
-            I build thoughtful digital products, from interfaces to production-ready web applications. Co-founder at{" "}
+            I build thoughtful digital products, from interfaces to production-ready enterprise systems. Currently working as a Software Engineer at{" "}
+            <strong>Wipro</strong> on <strong>ABAP on HANA</strong> with {abapExp.formattedYears} of hands-on experience in <strong>SAP ABAP</strong>, Core Data Services (CDS), and enterprise data pushdown workflows. Co-founder at{" "}
             <a
               href="https://www.clykur.com"
               target="_blank"
@@ -122,7 +128,7 @@ export const Hero = () => {
               <Linkedin className="w-4 h-4" />
             </a>
             <a
-              href="https://x.com/karthik_naramala"
+              href="https://x.com/Karthiknara9949"
               target="_blank"
               rel="noopener noreferrer"
               className="social-icon-link"

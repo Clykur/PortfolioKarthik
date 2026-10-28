@@ -5,24 +5,24 @@ interface SkillCategory {
 
 const skillsData: SkillCategory[] = [
   {
-    category: "Languages",
-    items: ["TypeScript", "JavaScript", "Python", "SQL"],
+    category: "Languages & Enterprise",
+    items: ["SAP ABAP", "ABAP on HANA", "TypeScript", "JavaScript", "Python", "SQL"],
   },
   {
-    category: "Frontend Systems",
-    items: ["React", "Next.js", "React Native", "Tailwind CSS"],
+    category: "Enterprise Systems",
+    items: ["SAP S/4HANA", "CDS Views", "AMDP", "Data Pushdown", "SAP NetWeaver"],
   },
   {
-    category: "Backend & APIs",
-    items: ["Node.js", "Express", "REST APIs", "Edge Functions"],
+    category: "Frontend & Mobile",
+    items: ["React", "Next.js", "React Native", "Expo", "Tailwind CSS"],
   },
   {
-    category: "Database & Cloud",
-    items: ["PostgreSQL", "Supabase", "Cloudflare", "Docker"],
+    category: "Backend & Databases",
+    items: ["SAP HANA", "PostgreSQL", "Supabase", "Node.js", "REST APIs"],
   },
   {
-    category: "Tooling & Environment",
-    items: ["Git", "GitHub", "Vite", "Linux"],
+    category: "DevOps & Tooling",
+    items: ["Git", "GitHub", "Docker", "Vite", "Linux", "Cloudflare"],
   },
 ];
 

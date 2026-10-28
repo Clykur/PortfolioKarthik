@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react";
+import { Logo } from "./Logo";
 
 export const Footer = () => {
   const scrollToTop = () => {
@@ -12,13 +13,16 @@ export const Footer = () => {
       </span>
 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-        <div>
-          <p className="font-headline font-bold text-sm text-[var(--ink-primary)]">
-            Karthik Naramala
-          </p>
-          <p className="text-[0.72rem] text-[var(--ink-muted)] font-ui">
-            Software Developer &amp; Product Builder · Co-founder @ Clykur
-          </p>
+        <div className="flex items-center gap-3">
+          <Logo size={28} variant="gold" />
+          <div>
+            <p className="font-headline font-bold text-sm text-[var(--ink-primary)]">
+              Karthik Naramala
+            </p>
+            <p className="text-[0.72rem] text-[var(--ink-muted)] font-ui">
+              Software Developer &amp; Product Builder · Software Engineer @ Wipro · Co-founder @ Clykur
+            </p>
+          </div>
         </div>
 
         {/* Public channels */}
@@ -42,7 +46,7 @@ export const Footer = () => {
           </a>
           <span className="footer-pipe">|</span>
           <a
-            href="https://x.com/karthik_naramala"
+            href="https://x.com/Karthiknara9949"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-link"

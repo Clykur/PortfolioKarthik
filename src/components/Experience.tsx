@@ -1,3 +1,5 @@
+import { getAbapExperience } from "@/lib/experience";
+
 interface ExperienceItem {
   period: string;
   role: string;
@@ -8,38 +10,53 @@ interface ExperienceItem {
   tech: string[];
 }
 
-const experiences: ExperienceItem[] = [
-  {
-    period: "2024 — Present",
-    company: "Clykur",
-    role: "Co-Founder / Software Developer",
-    location: "Bangalore, India",
-    summary:
-      "Co-founded Clykur, a digital product engineering studio. Leading technical architecture across client and studio products from specification to deployment.",
-    achievements: [
-      "Architected production web and mobile systems utilizing React Native, Next.js, Supabase, and PostgreSQL.",
-      "Established multi-tenant schema models, Row-Level Security policies, and low-latency API contracts.",
-      "Engineered full deployment pipelines with automated previews, containerization via Docker, and continuous integration.",
-    ],
-    tech: ["TypeScript", "React Native", "Next.js", "Supabase", "PostgreSQL", "Docker"],
-  },
-  {
-    period: "2024 — Present",
-    company: "CusOwn",
-    role: "Mobile & Systems Engineer",
-    location: "Bangalore, India",
-    summary:
-      "Engineering CusOwn, a production scheduling and booking SaaS engineered for service business operations.",
-    achievements: [
-      "Engineered an optimistic concurrency slot reservation engine eliminating double-booking collisions under high concurrent load.",
-      "Implemented resilient offline-first mobile synchronization leveraging Supabase Realtime and local persistent stores.",
-      "Designed automated transactional notification triggers across email and SMS workflows.",
-    ],
-    tech: ["React Native", "Expo", "TypeScript", "PostgreSQL", "Supabase Realtime"],
-  },
-];
-
 export const Experience = () => {
+  const abapExp = getAbapExperience();
+
+  const experiences: ExperienceItem[] = [
+    {
+      period: `2025 — Present (${abapExp.formattedYears})`,
+      company: "Wipro",
+      role: "Software Engineer — SAP ABAP & ABAP on HANA",
+      location: "Bangalore, India",
+      summary: `Working as a Software Engineer at Wipro with ${abapExp.formattedYears} of professional experience developing enterprise solutions in SAP ABAP and ABAP on HANA, building high-performance database procedures and mission-critical workflows.`,
+      achievements: [
+        "Developing enterprise business solutions leveraging SAP ABAP and ABAP on HANA code pushdown methodologies.",
+        "Engineering optimized Core Data Services (CDS) views, AMDP procedures, and SQL queries on SAP HANA database.",
+        "Conducting SAP performance analysis, debugging runtime bottlenecks, and ensuring robust enterprise integration.",
+      ],
+      tech: ["SAP ABAP", "ABAP on HANA", "SAP HANA", "CDS Views", "AMDP", "SQL"],
+    },
+    {
+      period: "2024 — Present",
+      company: "Clykur",
+      role: "Co-Founder / Software Developer",
+      location: "Bangalore, India",
+      summary:
+        "Co-founded Clykur, a digital product engineering studio. Leading technical architecture across client and studio products from specification to deployment.",
+      achievements: [
+        "Architected production web and mobile systems utilizing React Native, Next.js, Supabase, and PostgreSQL.",
+        "Established multi-tenant schema models, Row-Level Security policies, and low-latency API contracts.",
+        "Engineered full deployment pipelines with automated previews, containerization via Docker, and continuous integration.",
+      ],
+      tech: ["TypeScript", "React Native", "Next.js", "Supabase", "PostgreSQL", "Docker"],
+    },
+    {
+      period: "2024 — Present",
+      company: "CusOwn",
+      role: "Mobile & Systems Engineer",
+      location: "Bangalore, India",
+      summary:
+        "Engineering CusOwn, a production scheduling and booking SaaS engineered for service business operations.",
+      achievements: [
+        "Engineered an optimistic concurrency slot reservation engine eliminating double-booking collisions under high concurrent load.",
+        "Implemented resilient offline-first mobile synchronization leveraging Supabase Realtime and local persistent stores.",
+        "Designed automated transactional notification triggers across email and SMS workflows.",
+      ],
+      tech: ["React Native", "Expo", "TypeScript", "PostgreSQL", "Supabase Realtime"],
+    },
+  ];
+
   return (
     <section className="section" id="experience">
       <h2 className="section-lead-title">COMMERCIAL &amp; FOUNDING EXPERIENCE</h2>

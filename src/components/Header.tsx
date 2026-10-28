@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FileText, ArrowUpRight } from "lucide-react";
+import { Logo } from "./Logo";
 
 interface NavItem {
   label: string;
@@ -51,9 +52,8 @@ export const Header = () => {
         };
         const dateStr = now.toLocaleDateString("en-US", dateOptions);
         const timeOptions: Intl.DateTimeFormatOptions = {
-          hour: "2-digit",
+          hour: "numeric",
           minute: "2-digit",
-          second: "2-digit",
           hour12: true,
         };
         const timeStr = now.toLocaleTimeString("en-US", timeOptions);
@@ -131,7 +131,10 @@ export const Header = () => {
         aria-hidden={!stickyVisible}
       >
         <div className="sticky-mobile-inner">
-          <span className="sticky-mobile-title">Karthik Naramala</span>
+          <div className="flex items-center gap-2">
+            <Logo size={22} variant="gold" />
+            <span className="sticky-mobile-title">Karthik Naramala</span>
+          </div>
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -182,7 +185,10 @@ export const Header = () => {
       {/* Desktop & Tablet In-Flow Masthead / Nameplate */}
       <header className="masthead" role="banner">
         <div className="masthead-content">
-          <div className="masthead-brand-row">
+          <div className="masthead-brand-row flex flex-col items-center justify-center">
+            <div className="mb-2.5 transition-transform duration-300 hover:scale-105">
+              <Logo size={46} variant="gold" />
+            </div>
             <h1 className="newspaper-title">Karthik Naramala</h1>
           </div>
 

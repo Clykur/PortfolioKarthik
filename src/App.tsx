@@ -9,7 +9,12 @@ const App = () => (
   <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false}>
     <Sonner position="bottom-right" closeButton richColors />
     <NetworkBanner />
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="*" element={<NotFound />} />

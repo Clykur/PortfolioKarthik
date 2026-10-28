@@ -22,18 +22,27 @@ const jsonLdData = {
       url: "https://karthiknaramala.clykur.com/",
       jobTitle: "Software Developer & Product Builder",
       email: "karthik.naramala@clykur.com",
-      worksFor: {
-        "@type": "Organization",
-        name: "Clykur",
-        url: "https://www.clykur.com/",
-      },
+      worksFor: [
+        {
+          "@type": "Organization",
+          name: "Wipro",
+        },
+        {
+          "@type": "Organization",
+          name: "Clykur",
+          url: "https://www.clykur.com/",
+        },
+      ],
       sameAs: [
         "https://github.com/karthiknaramala9949",
         "https://www.linkedin.com/in/venkata-karthik-naramala-a35a7a224/",
-        "https://x.com/karthik_naramala",
+        "https://x.com/Karthiknara9949",
         "https://www.clykur.com/",
       ],
       knowsAbout: [
+        "SAP ABAP",
+        "ABAP on HANA",
+        "SAP S/4HANA",
         "React Native",
         "TypeScript",
         "Next.js",
@@ -79,7 +88,7 @@ const Index = () => {
         <meta property="og:url" content="https://karthiknaramala.clykur.com/" />
         <meta property="og:type" content="profile" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@karthik_naramala" />
+        <meta name="twitter:site" content="@Karthiknara9949" />
         <meta name="twitter:title" content="Karthik Naramala — Software Developer &amp; Product Builder" />
         <meta
           name="twitter:description"

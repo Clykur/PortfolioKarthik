@@ -169,7 +169,7 @@ export const Contact = () => {
               </a>
               <span className="text-[var(--rule-medium)]">·</span>
               <a
-                href="https://x.com/karthik_naramala"
+                href="https://x.com/Karthiknara9949"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="external-link inline-flex items-center gap-1"

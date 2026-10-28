@@ -31,7 +31,7 @@
   --rule-hairline: #2b2c36;
   --rule-light: #24252f;
 
-  --container-width: 1140px;
+  --container-width: 90%;
 
   /* Tailwind variables mapped to obsidian dark */
   --background: 228 11% 7%;
@@ -148,6 +148,7 @@
 .masthead,
 .newspaper-container,
 .newspaper-footer {
+  width: 90%;
   max-width: var(--container-width);
   margin-left: auto;
   margin-right: auto;
@@ -1150,26 +1151,45 @@
 
 @media (max-width: 768px) {
   body {
-    background-color: var(--paper-bg);
+    background-color: var(--desk-bg);
   }
 
   .masthead,
   .newspaper-container,
   .newspaper-footer {
-    margin-top: 0;
-    margin-bottom: 0;
-    border: none;
-    box-shadow: none;
+    width: 90%;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     padding-left: 1.1rem;
     padding-right: 1.1rem;
   }
 
   .masthead {
+    margin-top: 0.65rem;
+    margin-bottom: 0;
+    border: 1px solid var(--rule-hairline);
+    border-bottom: none;
     position: static;
     overflow: visible;
     background-color: var(--paper-bg);
     padding-top: 1.15rem;
     padding-bottom: 0.55rem;
+  }
+
+  .newspaper-container {
+    border-left: 1px solid var(--rule-hairline);
+    border-right: 1px solid var(--rule-hairline);
+    border-top: none;
+    border-bottom: none;
+  }
+
+  .newspaper-footer {
+    margin-top: 0;
+    margin-bottom: 0.65rem;
+    border: 1px solid var(--rule-hairline);
+    border-top: none;
   }
 
   .newspaper-title {
